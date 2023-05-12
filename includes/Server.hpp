@@ -1,21 +1,32 @@
+#pragma once
+
+// standard lib
 #include <string>
 #include <map>
 
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <netinet/in.h>
+// external lib
+#include <sys/socket.h> // socket(), setsocketopt(), bind(), listen()
+#include <netinet/in.h> // struct sockaddr_in
+#include <sys/epoll.h> // struct epool_event
+
+// custom lib
 #include "Client.hpp"
+#include "define.hpp"
 
 class Server
 {
 private:
 	Server(){};
-	
+	void _createsocket();
+	void _bindsocket();
+	void _createpoll();
 	// member attributes
 	int 							_port;
 	std::string						_password;
 	int								_socket_fd;
 	struct sockaddr_in				_socket_addr;
+	int								_epoll_fd;
+	struct epoll_event				_epoll_event;
 	std::map<std::string, Client*>	_server;
 
 public:

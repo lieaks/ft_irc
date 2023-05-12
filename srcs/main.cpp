@@ -14,5 +14,10 @@ int main(int ac, char **av)
 	};
 	ss << av[1];
 	ss >> port;
-	Server irc(port, av[2]);
+	try {
+		Server irc(port, av[2]);
+	}
+	catch (const std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
 };
