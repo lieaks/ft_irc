@@ -2,6 +2,7 @@
 
 // standard lib
 #include <string>
+#include <algorithm>
 #include <map>
 #include <vector>
 
@@ -33,7 +34,7 @@ private:
 	int								_epoll_fd;
 	struct epoll_event				_epoll_event;
 	struct epoll_event				_epoll_tab_events[MAX_EVENTS];
-	std::vector<Client*>			_vector_clients;
+	std::map<int, Client*>			_vector_clients;
 
 public:
 	Server(int port, std::string password);

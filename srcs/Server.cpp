@@ -4,6 +4,7 @@
 #include <netinet/in.h>
 #include <sys/epoll.h>
 #include <sys/socket.h>
+#include <utility>
 
 Server::Server(int port, std::string password) : \
 	_port(port), _password(password)
@@ -61,6 +62,7 @@ void Server::run_server() {
 	}
 };
 
+#include <utility>
 void Server::_handle_connection() {
 	int					client_d;
 	struct sockaddr_in	client_addr;
@@ -75,9 +77,11 @@ void Server::_handle_connection() {
 
 	// fill the socket adress with getsockname() + add new client to vector
 	getsockname(client_d, reinterpret_cast<struct sockaddr*>(&client_addr), \
-		&client_addr_len);
-	_vector_clients.push_back(new Client(client_d, \
+		&client_addr_len); 
+	// _vector_clients.push_back(new Client(client_d, \
 		inet_ntoa(client_addr.sin_addr)));
+	_vector_clients.insert(std::make_pair(client_d, \
+		new Client(client_d, inet_ntoa(client_addr.sin_addr))));
 	
 	// add client_d to the poll
 	_epoll_event.data.fd = client_d;
@@ -88,10 +92,25 @@ void Server::_handle_connection() {
 
 void Server::_handle_new_msg(int i) {
 	char	buffer[BUFFER_SIZE];
+	std::string input_buf;
 	int		ret;
+	Client* client;
 
+	std::map<int, Client*>::iterator it = _vector_clients.find(_epoll_tab_events[i].data.fd);
+	client = it->second;
 	memset(buffer, 0, BUFFER_SIZE);
 	if ((ret = recv(_epoll_tab_events[i].data.fd, buffer, BUFFER_SIZE, 0) < 0))
 		throw CustomException("Error: read msg");
-	
+	else if (ret == 0)
+	{}
+		// disconnect
+	else 
+	{
+		input_buf = client->getInput() + buffer;
+		client->setInput(input_buf);
+		// if (client->getInput().find("\n") == std::string::npos)
+		// 	return ;
+		// if (client->getInput().find("\r\n") == std::string::npos){
+		// }
+	}
 };
