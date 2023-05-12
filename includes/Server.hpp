@@ -3,11 +3,13 @@
 // standard lib
 #include <string>
 #include <map>
+#include <vector>
 
 // external lib
 #include <sys/socket.h> // socket(), setsocketopt(), bind(), listen()
 #include <netinet/in.h> // struct sockaddr_in
 #include <sys/epoll.h> // struct epool_event
+#include <arpa/inet.h> // inet_ntoa
 
 // custom lib
 #include "Client.hpp"
@@ -20,6 +22,9 @@ private:
 	void _createsocket();
 	void _bindsocket();
 	void _createpoll();
+	void _handle_connection();
+	void _handle_new_msg(int i);
+
 	// member attributes
 	int 							_port;
 	std::string						_password;
@@ -27,11 +32,13 @@ private:
 	struct sockaddr_in				_socket_addr;
 	int								_epoll_fd;
 	struct epoll_event				_epoll_event;
-	std::map<std::string, Client*>	_server;
+	struct epoll_event				_epoll_tab_events[MAX_EVENTS];
+	std::vector<Client*>			_vector_clients;
 
 public:
 	Server(int port, std::string password);
 	~Server();
+	void	run_server();
 };
 
 class CustomException : public std::exception {

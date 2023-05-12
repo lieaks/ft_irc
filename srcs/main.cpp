@@ -16,6 +16,7 @@ int main(int ac, char **av)
 	ss >> port;
 	try {
 		Server irc(port, av[2]);
+		irc.run_server();
 	}
 	catch (const std::exception &e){
 		std::cerr << e.what() << std::endl;

@@ -1,4 +1,4 @@
-SRCS_MAIN = main.cpp Server.cpp
+SRCS_MAIN = main.cpp Server.cpp Client.cpp
 SRCS = $(addprefix srcs/, $(SRCS_MAIN))
 OBJS = $(SRCS:.cpp=.o)
 DEPS = $(SRCS:.cpp=.d)
