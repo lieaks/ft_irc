@@ -12,3 +12,8 @@ std::vector<std::string> split(std::string str, std::string delimiters){
 	}
 	return tokens;
 };
+
+void displayCommands(Client *client, std::string arg) {
+	std::cout << "from [" << client->getInput() << " ] ";
+	std::cout << arg << std::endl;
+}
