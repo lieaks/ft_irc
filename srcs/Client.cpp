@@ -12,3 +12,7 @@ const std::string Client::getInput() const {
 void Client::setInput(std::string input) {
 	_input = input;
 };
+
+void Client::clearInput() {
+	_input.clear();
+}

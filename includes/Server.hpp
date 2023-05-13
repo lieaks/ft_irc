@@ -15,6 +15,7 @@
 // custom lib
 #include "Client.hpp"
 #include "define.hpp"
+#include "utils.hpp"
 
 class Server
 {

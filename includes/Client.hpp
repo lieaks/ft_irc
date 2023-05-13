@@ -14,6 +14,7 @@ public:
 	Client(int client_fd, std::string hostname);
 	~Client() {};
 	
-	const std::string getInput() const;
-	void setInput(std::string input);
+	const std::string	getInput() const;
+	void				clearInput();
+	void				setInput(std::string input);
 };

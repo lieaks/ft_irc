@@ -5,6 +5,7 @@
 #include <sys/epoll.h>
 #include <sys/socket.h>
 #include <utility>
+#include <vector>
 
 Server::Server(int port, std::string password) : \
 	_port(port), _password(password)
@@ -62,7 +63,6 @@ void Server::run_server() {
 	}
 };
 
-#include <utility>
 void Server::_handle_connection() {
 	int					client_d;
 	struct sockaddr_in	client_addr;
@@ -108,9 +108,12 @@ void Server::_handle_new_msg(int i) {
 	{
 		input_buf = client->getInput() + buffer;
 		client->setInput(input_buf);
-		// if (client->getInput().find("\n") == std::string::npos)
-		// 	return ;
-		// if (client->getInput().find("\r\n") == std::string::npos){
-		// }
+		if (client->getInput().find("\n") == std::string::npos)
+			return ;
+		else {
+			std::vector<std::string> cmd = split(client->getInput(), "\r\n");
+			client->clearInput();
+
+		}
 	}
 };
