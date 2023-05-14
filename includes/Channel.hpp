@@ -2,6 +2,6 @@
 
 class Channel
 {
-private:
-public:
+	private:
+	public:
 };

@@ -28,9 +28,9 @@ fclean: clean
 re: fclean all
 
 mac: $(NAME)
-	make && ./$(NAME) && make fclean
+	make && ./$(NAME) 6667 pass && make fclean
 
 leak: $(NAME)
-	make && valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) && make fclean
+	make && valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 6667 pass && make fclean
 
 .PHONY: all clean fclean re mac leak 

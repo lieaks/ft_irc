@@ -4,7 +4,7 @@
 
 class Command
 {
-private:
+	private:
 
-public:
+	public:
 };

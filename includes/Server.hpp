@@ -19,28 +19,28 @@
 
 class Server
 {
-private:
-	Server(){};
-	void _createsocket();
-	void _bindsocket();
-	void _createpoll();
-	void _handle_connection();
-	void _handle_new_msg(int i);
+	private:
+		Server(){};
+		void _createsocket();
+		void _bindsocket();
+		void _createpoll();
+		void _handle_connection();
+		void _handle_new_msg(int i);
 
-	// member attributes
-	int 							_port;
-	std::string						_password;
-	int								_socket_fd;
-	struct sockaddr_in				_socket_addr;
-	int								_epoll_fd;
-	struct epoll_event				_epoll_event;
-	struct epoll_event				_epoll_tab_events[MAX_EVENTS];
-	std::map<int, Client*>			_vector_clients;
+		// member attributes
+		int 							_port;
+		std::string						_password;
+		int								_socket_fd;
+		struct sockaddr_in				_socket_addr;
+		int								_epoll_fd;
+		struct epoll_event				_epoll_event;
+		struct epoll_event				_epoll_tab_events[MAX_EVENTS];
+		std::map<int, Client*>			_vector_clients;
 
-public:
-	Server(int port, std::string password);
-	~Server();
-	void	run_server();
+	public:
+		Server(int port, std::string password);
+		~Server();
+		void	run_server();
 };
 
 class CustomException : public std::exception {
