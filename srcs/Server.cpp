@@ -7,9 +7,8 @@
 #include <utility>
 #include <vector>
 
-Server::Server(int port, std::string password) : \
-	_port(port), _password(password)
-{
+Server::Server(int port, std::string password) :
+		_port(port), _password(password) {
 	_createsocket();
 	_bindsocket();
 	if (listen(_socket_fd, BACKLOG) < 0)
@@ -19,23 +18,23 @@ Server::Server(int port, std::string password) : \
 
 Server::~Server() {};
 
-void Server::_createsocket(){
+void Server::_createsocket() {
 	// AF_INET = addr ip v4 || SOCK_STREAM = protocol TCP 
 	if ((_socket_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
 		throw CustomException("Error: Cannot create socket");
 	int optval = 1;
-	if (setsockopt(_socket_fd, SOL_SOCKET, SO_REUSEADDR, \
-		&optval, sizeof(optval)) < 0)
+	if (setsockopt(_socket_fd, SOL_SOCKET, SO_REUSEADDR,
+				&optval, sizeof(optval)) < 0)
 		throw CustomException("Error: Cannot set socket");
 };
 
-void Server::_bindsocket(){
+void Server::_bindsocket() {
 	_socket_addr.sin_family = AF_INET;
 	_socket_addr.sin_addr.s_addr = INADDR_ANY; // "127.0.0.1"
 	_socket_addr.sin_port = htons(_port);
 	memset(_socket_addr.sin_zero, 0, sizeof(_socket_addr.sin_zero));
-	if (bind(_socket_fd, reinterpret_cast<struct sockaddr *>(&_socket_addr), \
-		sizeof(struct sockaddr)) < 0)
+	if (bind(_socket_fd, reinterpret_cast<struct sockaddr *>(&_socket_addr),
+				sizeof(struct sockaddr)) < 0)
 		throw CustomException("Error: Cannot bind");
 }
 
@@ -50,8 +49,7 @@ void Server::_createpoll(){
 
 void Server::run_server() {
 	int	new_event_fd;
-	while (1)
-	{
+	while (1) {
 		new_event_fd = epoll_wait(_epoll_fd, _epoll_tab_events, MAX_EVENTS, -1);
 		for (int i = 0; i < new_event_fd; i++){
 			if (_epoll_tab_events[i].data.fd == _socket_fd)
@@ -71,17 +69,17 @@ void Server::_handle_connection() {
 	// accept the connection request by the client
 	memset(&client_addr, 0, sizeof(client_addr));
 	memset(&client_addr_len, 0, sizeof(client_addr_len));
-	if ((client_d = accept(_socket_fd, \
-		reinterpret_cast<struct sockaddr*>(&client_addr), &client_addr_len)) < 0)
+	if ((client_d = accept(_socket_fd,
+					reinterpret_cast<struct sockaddr*>(&client_addr), &client_addr_len)) < 0)
 		throw CustomException("Error: Cannot accept connection");
 
 	// fill the socket adress with getsockname() + add new client to vector
-	getsockname(client_d, reinterpret_cast<struct sockaddr*>(&client_addr), \
-		&client_addr_len); 
+	getsockname(client_d, reinterpret_cast<struct sockaddr*>(&client_addr),
+			&client_addr_len); 
 	// _vector_clients.push_back(new Client(client_d, inet_ntoa(client_addr.sin_addr)));
-	_vector_clients.insert(std::make_pair(client_d, \
-		new Client(client_d, inet_ntoa(client_addr.sin_addr))));
-	
+	_vector_clients.insert(std::make_pair(client_d,
+				new Client(client_d, inet_ntoa(client_addr.sin_addr))));
+
 	// add client_d to the poll
 	_epoll_event.data.fd = client_d;
 	_epoll_event.events = EPOLLIN;
@@ -100,11 +98,9 @@ void Server::_handle_new_msg(int i) {
 	memset(buffer, 0, BUFFER_SIZE);
 	if ((ret = recv(_epoll_tab_events[i].data.fd, buffer, BUFFER_SIZE, 0) < 0))
 		throw CustomException("Error: read msg");
-	else if (ret == 0)
-	{}
+	else if (ret == 0) {
 		// disconnect
-	else 
-	{
+	} else {
 		input_buf = client->getInput() + buffer;
 		client->setInput(input_buf);
 		if (client->getInput().find("\n") == std::string::npos)
@@ -112,7 +108,6 @@ void Server::_handle_new_msg(int i) {
 		else {
 			std::vector<std::string> cmd = split(client->getInput(), "\r\n");
 			client->clearInput();
-
 		}
 	}
 };
