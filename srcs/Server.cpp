@@ -78,8 +78,7 @@ void Server::_handle_connection() {
 	// fill the socket adress with getsockname() + add new client to vector
 	getsockname(client_d, reinterpret_cast<struct sockaddr*>(&client_addr), \
 		&client_addr_len); 
-	// _vector_clients.push_back(new Client(client_d, \
-		inet_ntoa(client_addr.sin_addr)));
+	// _vector_clients.push_back(new Client(client_d, inet_ntoa(client_addr.sin_addr)));
 	_vector_clients.insert(std::make_pair(client_d, \
 		new Client(client_d, inet_ntoa(client_addr.sin_addr))));
 	
