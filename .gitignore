@@ -8,6 +8,7 @@
 ircserv
 helper
 ircbot
+*.d
 
 # Debug files
 *.dSYM/
