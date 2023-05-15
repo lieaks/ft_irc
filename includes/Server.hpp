@@ -20,7 +20,7 @@
 class Server
 {
 	private:
-		Server(){};
+		Server() {};
 		void _createsocket();
 		void _bindsocket();
 		void _createpoll();
@@ -43,10 +43,10 @@ class Server
 		void	run_server();
 };
 
-class CustomException : public std::exception {
-	private:
-		const char* m_message;
-	public:
-		CustomException(const char * message) : m_message(message) {};
-		virtual const char* what() const throw() {return m_message;};
-};
+/* class CustomException : public std::exception { */
+/* 	private: */
+/* 		const char* m_message; */
+/* 	public: */
+/* 		CustomException(const char * message) : m_message(message) {}; */
+/* 		virtual const char* what() const throw() {return m_message;}; */
+/* }; */

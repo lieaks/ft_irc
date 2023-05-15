@@ -12,7 +12,7 @@ Server::Server(int port, std::string password) :
 	_createsocket();
 	_bindsocket();
 	if (listen(_socket_fd, BACKLOG) < 0)
-		throw CustomException("Error: Cannot listen");
+		throw std::runtime_error("Error: Cannot listen");
 	_createpoll();
 };
 
@@ -21,11 +21,11 @@ Server::~Server() {};
 void Server::_createsocket() {
 	// AF_INET = addr ip v4 || SOCK_STREAM = protocol TCP 
 	if ((_socket_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
-		throw CustomException("Error: Cannot create socket");
+		throw std::runtime_error("Error: Cannot create socket");
 	int optval = 1;
 	if (setsockopt(_socket_fd, SOL_SOCKET, SO_REUSEADDR,
 				&optval, sizeof(optval)) < 0)
-		throw CustomException("Error: Cannot set socket");
+		throw std::runtime_error("Error: Cannot set socket");
 };
 
 void Server::_bindsocket() {
@@ -35,16 +35,16 @@ void Server::_bindsocket() {
 	memset(_socket_addr.sin_zero, 0, sizeof(_socket_addr.sin_zero));
 	if (bind(_socket_fd, reinterpret_cast<struct sockaddr *>(&_socket_addr),
 				sizeof(struct sockaddr)) < 0)
-		throw CustomException("Error: Cannot bind");
+		throw std::runtime_error("Error: Cannot bind");
 }
 
 void Server::_createpoll(){
 	if ((_epoll_fd = epoll_create(BACKLOG)) < 0)
-		throw CustomException("Error: Cannot create epoll");
+		throw std::runtime_error("Error: Cannot create epoll");
 	_epoll_event.data.fd = _socket_fd;
 	_epoll_event.events = EPOLLIN;
 	if (epoll_ctl(_epoll_fd, EPOLL_CTL_ADD, _socket_fd, &_epoll_event) < 0)
-		throw CustomException("Error: Cannot control epoll");
+		throw std::runtime_error("Error: Cannot control epoll");
 };
 
 void Server::run_server() {
@@ -71,7 +71,7 @@ void Server::_handle_connection() {
 	memset(&client_addr_len, 0, sizeof(client_addr_len));
 	if ((client_d = accept(_socket_fd,
 					reinterpret_cast<struct sockaddr*>(&client_addr), &client_addr_len)) < 0)
-		throw CustomException("Error: Cannot accept connection");
+		throw std::runtime_error("Error: Cannot accept connection");
 
 	// fill the socket adress with getsockname() + add new client to vector
 	getsockname(client_d, reinterpret_cast<struct sockaddr*>(&client_addr),
@@ -84,7 +84,7 @@ void Server::_handle_connection() {
 	_epoll_event.data.fd = client_d;
 	_epoll_event.events = EPOLLIN;
 	if (epoll_ctl(_epoll_fd, EPOLL_CTL_ADD, client_d, &_epoll_event) < 0)
-		throw CustomException("Error: Cannot control epoll");
+		throw std::runtime_error("Error: Cannot control epoll");
 };
 
 void Server::_handle_new_msg(int i) {
@@ -97,7 +97,7 @@ void Server::_handle_new_msg(int i) {
 	client = it->second;
 	memset(buffer, 0, BUFFER_SIZE);
 	if ((ret = recv(_epoll_tab_events[i].data.fd, buffer, BUFFER_SIZE, 0)) < 0)
-		throw CustomException("Error: read msg");
+		throw std::runtime_error("Error: read msg");
 	else if (ret == 0) {
 		// disconnect
 	} else {
