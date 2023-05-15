@@ -20,7 +20,7 @@
 class Server
 {
 	private:
-		Server() {};
+		Server(){};
 		void _createsocket();
 		void _bindsocket();
 		void _createpoll();
@@ -47,6 +47,12 @@ class Server
 /* 	private: */
 /* 		const char* m_message; */
 /* 	public: */
-/* 		CustomException(const char * message) : m_message(message) {}; */
-/* 		virtual const char* what() const throw() {return m_message;}; */
+/* 		CustomException(const char * message): m_message(message) {}; */
+/* 		CustomException(std::string message, int code) { */
+/* 			// doesn't work because the message is freed before the throw */
+/* 			if (errno != 0) */
+/* 				message = message + ": " + strerror(code); */
+/* 			m_message = message.c_str(); */
+/* 		} */
+/* 		virtual const char* what() const throw() { return m_message; }; */
 /* }; */

@@ -25,6 +25,9 @@ int main(int ac, char **av)
 		irc.run_server();
 	}
 	catch (const std::exception &e) {
-		std::cerr << e.what() << std::endl;
+		std::cerr << e.what();
+		if (errno != 0)
+			std::cerr << ": " << strerror(errno);
+		std::cerr << std::endl;
 	}
 };
