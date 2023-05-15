@@ -96,7 +96,7 @@ void Server::_handle_new_msg(int i) {
 	std::map<int, Client*>::iterator it = _vector_clients.find(_epoll_tab_events[i].data.fd);
 	client = it->second;
 	memset(buffer, 0, BUFFER_SIZE);
-	if ((ret = recv(_epoll_tab_events[i].data.fd, buffer, BUFFER_SIZE, 0) < 0))
+	if ((ret = recv(_epoll_tab_events[i].data.fd, buffer, BUFFER_SIZE, 0)) < 0)
 		throw CustomException("Error: read msg");
 	else if (ret == 0) {
 		// disconnect
