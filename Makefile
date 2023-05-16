@@ -1,4 +1,4 @@
-SRCS_MAIN = main.cpp Server.cpp Client.cpp utils.cpp
+SRCS_MAIN = main.cpp Server.cpp Client.cpp Channel.cpp utils.cpp
 SRCS = $(addprefix srcs/, $(SRCS_MAIN))
 
 # COMMANDS_SRC will add prefix commands/ and suffix .cpp to nick.cpp, user.cpp, pass.cpp
