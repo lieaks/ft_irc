@@ -8,9 +8,11 @@ std::vector<std::string> split(std::string str, std::string delimiters){
 	while ((pos = str.find(delimiters)) != std::string::npos){
 		ret = str.substr(0, pos);
 		str = str.substr(pos + 1);
-		tokens.push_back(ret);
+		if (!ret.empty())
+			tokens.push_back(ret);
 	}
-	tokens.push_back(str);
+	if (!str.empty())
+		tokens.push_back(str);
 	return tokens;
 };
 

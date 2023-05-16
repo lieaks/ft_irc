@@ -107,10 +107,11 @@ void Server::_handle_new_msg(int i) {
 		if (client->getInput().find("\n") == std::string::npos)
 			return ;
 		else {
+			client->setInput(client->getInput().substr(0, client->getInput().size() - 1));
 			std::vector<std::string> cmd = split(client->getInput(), " ");
-			if (cmd.size() > 0) {
+			if (cmd.size()) {
 				if (_commands.find(cmd[0]) != _commands.end()) {
-					_commands[cmd[0]](*client, cmd);
+					_commands[cmd[0]](*this, *client, cmd);
 				} else {
 					std::cout << "Error: Invalid command" << std::endl;
 				}
@@ -125,7 +126,7 @@ void Server::_handle_new_msg(int i) {
 
 void	Server::_init_commands( void ) {
 	// For now, just add NICK, USER and PASS
-	_commands.insert(std::pair<std::string, bool (*)(Client&, std::vector<std::string>&)>("NICK", &cmd_nick));
-	_commands.insert(std::pair<std::string, bool (*)(Client&, std::vector<std::string>&)>("USER", &cmd_user));
-	_commands.insert(std::pair<std::string, bool (*)(Client&, std::vector<std::string>&)>("PASS", &cmd_pass));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("NICK", &cmd_nick));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("USER", &cmd_user));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PASS", &cmd_pass));
 }

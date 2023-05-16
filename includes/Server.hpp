@@ -38,12 +38,15 @@ class Server
 		struct epoll_event				_epoll_event;
 		struct epoll_event				_epoll_tab_events[MAX_EVENTS];
 		std::map<int, Client*>			_vector_clients;
-		std::map<std::string, bool (*)(Client &, std::vector<std::string> & )>	_commands;
+		std::map<std::string, bool (*)(Server &, Client &, std::vector<std::string> & )>	_commands;
 
 	public:
 		Server(int port, std::string password);
 		~Server();
 		void	run_server();
+
+		// getter
+		std::map<int, Client*>			&getClients() { return _vector_clients; };
 };
 
 /* class CustomException : public std::exception { */
