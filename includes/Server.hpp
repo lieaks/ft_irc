@@ -16,6 +16,7 @@
 #include "Client.hpp"
 #include "define.hpp"
 #include "utils.hpp"
+#include "commands.hpp"
 
 class Server
 {
@@ -36,12 +37,13 @@ class Server
 		struct epoll_event				_epoll_event;
 		struct epoll_event				_epoll_tab_events[MAX_EVENTS];
 		std::map<int, Client*>			_vector_clients;
-		std::map<std::string, void (*)(Client &, std::string &)>	_commands;
+		std::map<std::string, bool (*)(Client &, std::string &)>	_commands;
 
 	public:
 		Server(int port, std::string password);
 		~Server();
 		void	run_server();
+		void	init_commands();
 };
 
 /* class CustomException : public std::exception { */

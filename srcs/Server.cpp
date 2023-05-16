@@ -111,3 +111,10 @@ void Server::_handle_new_msg(int i) {
 		}
 	}
 };
+
+void	Server::init_commands( void ) {
+	// For now, just add NICK, USER and PASS
+	_commands.insert(std::pair<std::string, bool (*)(Client&, std::string&)>("NICK", &cmd_nick));
+	_commands.insert(std::pair<std::string, bool (*)(Client&, std::string&)>("USER", &cmd_user));
+	_commands.insert(std::pair<std::string, bool (*)(Client&, std::string&)>("PASS", &cmd_pass));
+}
