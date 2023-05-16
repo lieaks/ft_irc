@@ -14,6 +14,7 @@ Server::Server(int port, std::string password) :
 	if (listen(_socket_fd, BACKLOG) < 0)
 		throw std::runtime_error("Error: Cannot listen");
 	_createpoll();
+	_init_commands();
 };
 
 Server::~Server() {};
@@ -106,15 +107,25 @@ void Server::_handle_new_msg(int i) {
 		if (client->getInput().find("\n") == std::string::npos)
 			return ;
 		else {
-			std::vector<std::string> cmd = split(client->getInput(), "\r\n");
+			std::vector<std::string> cmd = split(client->getInput(), " ");
+			if (cmd.size()) {
+				if (_commands.find(cmd[0]) != _commands.end()) {
+					_commands[cmd[0]](*client, cmd);
+				} else {
+					std::cout << "Error: Invalid command" << std::endl;
+				}
+			}
+			else {
+				std::cout << "Error: Invalid command" << std::endl;
+			}
 			client->clearInput();
 		}
 	}
 };
 
-void	Server::init_commands( void ) {
+void	Server::_init_commands( void ) {
 	// For now, just add NICK, USER and PASS
-	_commands.insert(std::pair<std::string, bool (*)(Client&, std::string&)>("NICK", &cmd_nick));
-	_commands.insert(std::pair<std::string, bool (*)(Client&, std::string&)>("USER", &cmd_user));
-	_commands.insert(std::pair<std::string, bool (*)(Client&, std::string&)>("PASS", &cmd_pass));
+	_commands.insert(std::pair<std::string, bool (*)(Client&, std::vector<std::string>&)>("NICK", &cmd_nick));
+	_commands.insert(std::pair<std::string, bool (*)(Client&, std::vector<std::string>&)>("USER", &cmd_user));
+	_commands.insert(std::pair<std::string, bool (*)(Client&, std::vector<std::string>&)>("PASS", &cmd_pass));
 }

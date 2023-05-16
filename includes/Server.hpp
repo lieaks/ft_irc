@@ -27,6 +27,7 @@ class Server
 		void _createpoll();
 		void _handle_connection();
 		void _handle_new_msg(int i);
+		void _init_commands();
 
 		// member attributes
 		int 							_port;
@@ -37,13 +38,12 @@ class Server
 		struct epoll_event				_epoll_event;
 		struct epoll_event				_epoll_tab_events[MAX_EVENTS];
 		std::map<int, Client*>			_vector_clients;
-		std::map<std::string, bool (*)(Client &, std::string &)>	_commands;
+		std::map<std::string, bool (*)(Client &, std::vector<std::string> & )>	_commands;
 
 	public:
 		Server(int port, std::string password);
 		~Server();
 		void	run_server();
-		void	init_commands();
 };
 
 /* class CustomException : public std::exception { */
