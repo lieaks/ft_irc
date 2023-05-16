@@ -1,8 +1,7 @@
 #include "../../includes/commands.hpp"
 
 bool	cmd_nick(Client &client, std::vector<std::string> &input) {
-	(void)client;
-	(void)input;
-	std::cout << "cmd_nick" << std::endl;
+	client.setNickname(input[1]);
+	std::cout << "New nickname: " << client.getNickname() << std::endl;
 	return true;
 }

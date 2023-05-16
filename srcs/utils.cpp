@@ -10,6 +10,7 @@ std::vector<std::string> split(std::string str, std::string delimiters){
 		str = str.substr(pos + 1);
 		tokens.push_back(ret);
 	}
+	tokens.push_back(str);
 	return tokens;
 };
 

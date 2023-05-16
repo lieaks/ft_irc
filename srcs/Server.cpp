@@ -108,7 +108,7 @@ void Server::_handle_new_msg(int i) {
 			return ;
 		else {
 			std::vector<std::string> cmd = split(client->getInput(), " ");
-			if (cmd.size()) {
+			if (cmd.size() > 0) {
 				if (_commands.find(cmd[0]) != _commands.end()) {
 					_commands[cmd[0]](*client, cmd);
 				} else {
