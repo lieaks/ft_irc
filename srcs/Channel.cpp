@@ -3,10 +3,10 @@
 Channel::Channel(std::string name, std::string topic, Client *creator):
 	_name(name),
 	_topic(topic),
-	_creator(creator),
-	_created_at(time(NULL)),
 	_limit(10),
-	_modes(0)
+	_creator(creator),
+	_modes(0),
+	_created_at(time(NULL))
 {
 	std::cout << "new channel with name: " << _name << std::endl;
 };
