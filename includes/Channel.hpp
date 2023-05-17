@@ -43,6 +43,7 @@ class Channel
 		std::vector<Client *>	getOperators() { return _operators; };
 		Client				*getClient(const std::string nickname);
 		int					&getMode() { return _modes; };
+		time_t				getCreationDate() const { return _created_at; };
 
 		void	setName(const std::string name) { _name = name; };
 		void	setTopic(const std::string topic) { _topic = topic; };
