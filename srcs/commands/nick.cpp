@@ -26,6 +26,7 @@ bool	is_nick_taken(Server &server, std::string &nickname) {
 bool	cmd_nick(Server &server, Client &client, std::vector<std::string> &input) {
 	if (input.size() < 2) {
 		std::cerr << "[NICK] Error: not enough arguments" << std::endl;
+		send(client.getFd(), "431 :No nickname given\n", 23, 0);
 		// TODO: send ERR_NONICKNAMEGIVEN
 		return false;
 	}

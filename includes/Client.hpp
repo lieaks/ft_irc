@@ -25,6 +25,7 @@ class Client
 		// Getters and setters
 		const std::string	getInput() const { return _input; };
 		const std::string	getNickname() const { return _nickname; };
+		int					getFd() const { return _client_fd; };
 		std::vector<Channel *>&	getChannels() { return _channels; };
 		Channel			*getActiveChannel() const { return _active_channel; };
 		Channel			*getChannel(std::string const channel_name);
