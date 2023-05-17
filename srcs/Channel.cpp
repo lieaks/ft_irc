@@ -1,6 +1,13 @@
 #include "../includes/Channel.hpp"
 
-Channel::Channel(std::string name, std::string topic = "topic"): _name(name), _topic(topic) {
+Channel::Channel(std::string name, std::string topic, Client *creator):
+	_name(name),
+	_topic(topic),
+	_creator(creator),
+	_created_at(time(NULL)),
+	_limit(10),
+	_modes(0)
+{
 	std::cout << "new channel with name: " << _name << std::endl;
 };
 
@@ -44,4 +51,11 @@ void	Channel::send_message(const std::string message) {
 		(*it)->send_message(message);
 		it++;
 	}
+}
+
+void	Channel::addOperator(Client *client) {
+	std::vector<Client*>::iterator it = std::find(_operators.begin(), _operators.end(), client);
+	if (it != _operators.end())
+		return ;
+	_operators.push_back(client);
 }

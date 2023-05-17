@@ -6,7 +6,8 @@ Client::Client(int client_fd, std::string hostname) :
 	_hostname(hostname),
 	_nickname(""),
 	_active_channel(NULL),
-	_password(false)
+	_modes(0),
+	_isAuth(false)
 {
 		std::cout << "new client with fd: " << _client_fd << std::endl;
 };
@@ -14,10 +15,6 @@ Client::Client(int client_fd, std::string hostname) :
 Client::~Client()
 {
 	leaveAllChannels();
-}
-
-const bool Client::getPassword() const {
-	return _password;
 }
 
 Channel*	Client::getChannel(const std::string channel_name)
@@ -30,8 +27,6 @@ Channel*	Client::getChannel(const std::string channel_name)
 	}
 	return NULL;
 }
-
-void	Client::setPassword(bool pw) {_password = pw;}
 
 bool	Client::joinChannel(Channel *channel)
 {
@@ -77,5 +72,5 @@ void	Client::leaveActiveChannel()
 void	Client::send_message(const std::string message)
 {
 	// std::cout << "sending message to client " + _nickname + ": " << message << std::endl;
-	send(_client_fd, message.c_str(), message.length(), 0);
+	send(_client_fd, message.c_str(), message.length(), MSG_NOSIGNAL);
 }

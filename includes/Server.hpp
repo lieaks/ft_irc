@@ -13,6 +13,7 @@
 #include <arpa/inet.h> // inet_ntoa
 
 // custom lib
+#include "Channel.hpp"
 #include "Client.hpp"
 #include "define.hpp"
 #include "utils.hpp"
@@ -21,7 +22,6 @@
 class Server
 {
 	private:
-		Server(){};
 		void _createsocket();
 		void _bindsocket();
 		void _createpoll();
@@ -38,6 +38,7 @@ class Server
 		struct epoll_event				_epoll_event;
 		struct epoll_event				_epoll_tab_events[MAX_EVENTS];
 		std::map<int, Client*>			_vector_clients;
+		std::vector<Channel *>			_vector_channels;
 		std::map<std::string, bool (*)(Server &, Client &, std::vector<std::string> & )>	_commands;
 
 	public:
@@ -48,6 +49,7 @@ class Server
 		// getter
 		std::map<int, Client*>			&getClients() { return _vector_clients; };
 		const std::string				getPassword() const;
+		std::vector<Channel *>		    &getChannels() { return _vector_channels; };
 };
 
 /* class CustomException : public std::exception { */

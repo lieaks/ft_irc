@@ -1,6 +1,6 @@
 #pragma once
 
-#define	SERVER_NAME "chattastrophe"
+#define	SERVER_NAME "chat-astrophe"
 #define BACKLOG 10 //max length of the queue
 #define max_clients 10
 #define MAX_EVENTS 10

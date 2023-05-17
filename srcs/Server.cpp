@@ -17,7 +17,20 @@ Server::Server(int port, std::string password) :
 	_init_commands();
 };
 
-Server::~Server() {};
+Server::~Server() {
+	std::map<int, Client*>::iterator clit = _vector_clients.begin();
+	while (clit != _vector_clients.end()) {
+		// TODO: disconnect user, like a /kill
+		/* clit->second->send_message() */
+		delete clit->second;
+		clit++;
+	}
+	std::vector<Channel *>::iterator chit = _vector_channels.begin();
+	while (chit != _vector_channels.end()) {
+		delete *chit;
+		chit++;
+	}
+};
 
 void Server::_createsocket() {
 	// AF_INET = addr ip v4 || SOCK_STREAM = protocol TCP 
