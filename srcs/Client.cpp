@@ -5,7 +5,8 @@ Client::Client(int client_fd, std::string hostname) :
 	_client_fd(client_fd),
 	_hostname(hostname),
 	_nickname(""),
-	_active_channel(NULL)
+	_active_channel(NULL),
+	_password(false)
 {
 		std::cout << "new client with fd: " << _client_fd << std::endl;
 };
@@ -13,6 +14,10 @@ Client::Client(int client_fd, std::string hostname) :
 Client::~Client()
 {
 	leaveAllChannels();
+}
+
+const bool Client::getPassword() const {
+	return _password;
 }
 
 Channel*	Client::getChannel(const std::string channel_name)
@@ -25,6 +30,8 @@ Channel*	Client::getChannel(const std::string channel_name)
 	}
 	return NULL;
 }
+
+void	Client::setPassword(bool pw) {_password = pw;}
 
 bool	Client::joinChannel(Channel *channel)
 {

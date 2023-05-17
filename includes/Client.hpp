@@ -15,6 +15,7 @@ class Client
 		std::string				_hostname;
 		std::string				_input;
 		std::string				_nickname;
+		bool					_password;
 		Channel					*_active_channel;
 		std::vector<Channel *>	_channels;
 
@@ -27,12 +28,14 @@ class Client
 		const std::string	getNickname() const { return _nickname; };
 		int					getFd() const { return _client_fd; };
 		std::vector<Channel *>&	getChannels() { return _channels; };
-		Channel			*getActiveChannel() const { return _active_channel; };
-		Channel			*getChannel(std::string const channel_name);
+		Channel				*getActiveChannel() const { return _active_channel; };
+		Channel				*getChannel(std::string const channel_name);
+		const bool			getPassword() const;
 
 		void				setActiveChannel(Channel *channel) { _active_channel = channel; };
 		void				setInput(std::string input) { _input = input; };
-		void				setNickname( std::string const &nickname ) { _nickname = nickname; };
+		void				setNickname(std::string const &nickname ) { _nickname = nickname; };
+		void				setPassword(bool pw);
 		
 		void				clearInput() { _input.clear(); };
 

@@ -47,6 +47,7 @@ class Server
 
 		// getter
 		std::map<int, Client*>			&getClients() { return _vector_clients; };
+		const std::string				getPassword() const;
 };
 
 /* class CustomException : public std::exception { */

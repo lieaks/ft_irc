@@ -124,6 +124,8 @@ void Server::_handle_new_msg(int i) {
 	}
 };
 
+const std::string	Server::getPassword() const {return _password;}
+
 void	Server::_init_commands( void ) {
 	// For now, just add NICK, USER and PASS
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("NICK", &cmd_nick));
