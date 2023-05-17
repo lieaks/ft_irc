@@ -1,6 +1,6 @@
 #pragma once
 
-#define	SERVER_NAME chatastrophe
+#define	SERVER_NAME "chattastrophe"
 #define BACKLOG 10 //max length of the queue
 #define max_clients 10
 #define MAX_EVENTS 10
@@ -16,3 +16,5 @@
 #define ERR_NOSUCHNICK(nickname, other_nickname) (":" + SERVER_NAME + " 401 " + nickname + " " + other_nickname + ": No such nick/channel\r\n")
 #define ERR_WASNOSUCHNICK(nickname, other_nickname) (":" + SERVER_NAME + " 406 " + nickname + " " + other_nickname + " :There was no such nickname\r\n")
 #define ERR_NICKNAMEINUSE(nickname) (":" + SERVER_NAME + " 433 " + " :Nickname is already in use\r\n")
+#define ERR_NEEDMOREPARAMS(command) (std::string(":") + SERVER_NAME + " 461 " + command + " :Not enough parameters\r\n")
+

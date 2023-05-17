@@ -69,6 +69,6 @@ void	Client::leaveActiveChannel()
 
 void	Client::send_message(const std::string message)
 {
-	std::cout << "sending message to client " + _nickname + ": " << message << std::endl;
+	// std::cout << "sending message to client " + _nickname + ": " << message << std::endl;
 	send(_client_fd, message.c_str(), message.length(), 0);
 }
