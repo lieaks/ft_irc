@@ -15,6 +15,8 @@
 
 #define ERR_NOSUCHNICK(nickname, other_nickname) (":" + SERVER_NAME + " 401 " + nickname + " " + other_nickname + ": No such nick/channel\r\n")
 #define ERR_WASNOSUCHNICK(nickname, other_nickname) (":" + SERVER_NAME + " 406 " + nickname + " " + other_nickname + " :There was no such nickname\r\n")
-#define ERR_NICKNAMEINUSE(nickname) (":" + SERVER_NAME + " 433 " + " :Nickname is already in use\r\n")
+
 #define ERR_NEEDMOREPARAMS(command) (std::string(":") + SERVER_NAME + " 461 " + command + " :Not enough parameters\r\n")
 
+#define ERR_ERRONEUSNICKNAME(nickname) (std::string(":") + SERVER_NAME + " 432 " + nickname + " :Erroneus nickname\r\n")
+#define ERR_NICKNAMEINUSE(nickname) (std::string(":") + SERVER_NAME + " 433 " + nickname + " :Nickname is already in use\r\n")
