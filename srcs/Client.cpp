@@ -33,10 +33,7 @@ bool	Client::joinChannel(Channel *channel)
 	if (channel->addClient(this)) {
 		_channels.push_back(channel);
 		return true;
-		// TODO: send join message to client
 	}
-	// TODO: send error message to client
-	std::cout << "failed to add client to channel" << std::endl;
 	return false;
 }
 
@@ -49,7 +46,6 @@ void	Client::leaveChannel(Channel *channel)
 		_active_channel = NULL;
 	(*it)->removeClient(this);
 	_channels.erase(it);
-	// TODO: send leave message to client
 }
 
 void	Client::leaveAllChannels()
