@@ -1,4 +1,5 @@
 #include "../includes/Channel.hpp"
+#include <vector>
 
 Channel::Channel(std::string name, std::string topic, Client *creator):
 	_name(name),
@@ -31,9 +32,7 @@ bool	Channel::addClient(Client *client) {
 	std::vector<Client*>::iterator it = std::find(_clients.begin(), _clients.end(), client);
 	if (it != _clients.end())
 		return false;
-	// TODO: check that the user is not banned or has the right to join
 	_clients.push_back(client);
-	// TODO: send join message to channel
 	return true;
 }
 
@@ -42,7 +41,6 @@ void	Channel::removeClient(Client *client) {
 	if (it == _clients.end())
 		return ;
 	_clients.erase(it);
-	// TODO: send leave message to channel
 }
 
 void	Channel::send_message(const std::string message) {
@@ -58,4 +56,39 @@ void	Channel::addOperator(Client *client) {
 	if (it != _operators.end())
 		return ;
 	_operators.push_back(client);
+}
+
+void	Channel::removeOperator(Client *client) {
+	std::vector<Client *>::iterator it = std::find(_operators.begin(), _operators.end(), client);
+	if (it == _operators.end())
+		return ;
+	_operators.erase(it);
+}
+
+bool	Channel::isOperator(Client *client) {
+	std::vector<Client *>::iterator it = std::find(_operators.begin(), _operators.end(), client);
+	if (it == _operators.end())
+		return false;
+	return true;
+}
+
+void	Channel::addBan(Client *client) {
+	std::vector<Client *>::iterator it = std::find(_banned.begin(), _banned.end(), client);
+	if (it != _banned.end())
+		return ;
+	_banned.push_back(client);
+}
+
+void	Channel::removeBan(Client *client) {
+	std::vector<Client *>::iterator it = std::find(_banned.begin(), _banned.end(), client);
+	if (it == _banned.end())
+		return ;
+	_banned.erase(it);
+}
+
+bool	Channel::isBanned(Client *client) {
+	std::vector<Client *>::iterator it = std::find(_banned.begin(), _banned.end(), client);
+	if (it == _banned.end())
+		return false;
+	return true;
 }

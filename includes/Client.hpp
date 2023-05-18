@@ -9,13 +9,10 @@
 class Channel;
 
 enum ClientModes {
-	AWAY = 1 << 0,
 	INVISIBLE = 1 << 1,
 	WALLOPS = 1 << 2,
-	RESTRICTED = 1 << 3,
+	SERVER_NOTICES = 1 << 3,
 	OPERATOR = 1 << 4,
-	LOCAL_OPERATOR = 1 << 5,
-	RECEIVE_SERVER_NOTICES = 1 << 6,
 };
 
 class Client
