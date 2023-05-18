@@ -11,4 +11,4 @@ class Server;
 bool	cmd_nick(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_user(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_pass(Server &server, Client &client, std::vector<std::string> &input);
-
+bool	cmd_ping(Server &server, Client &client, std::vector<std::string> &input);

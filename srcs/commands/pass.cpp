@@ -1,9 +1,6 @@
 #include "../../includes/commands.hpp"
 
 bool	cmd_pass(Server &server, Client &client, std::vector<std::string> &input) {
-	(void)server;
-	(void)client;
-	(void)input;
 	if (input.empty() || input[0].empty()){
 		client.send_message(ERR_NEEDMOREPARAMS(client.getNickname(), input[0]));
 		return false;

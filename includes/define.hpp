@@ -44,6 +44,7 @@
 #define ERR_NEEDMOREPARAMS(nickname, command) (std::string(":") + SERVER_NAME + " 461 " + nickname + " " + command + " :Not enough parameters\r\n")
 #define ERR_ALREADYREGISTRED(nickname) (std::string(":") + SERVER_NAME + " 462 " + nickname + " :Already registred\r\n")
 #define ERR_ERRONEUSNICKNAME(nickname) (std::string(":") + SERVER_NAME + " 432 " + nickname + " :Erroneus nickname\r\n")
+#define ERR_NOORIGIN(nickname) (std::string(":") + SERVER_NAME + " 409 " + nickname + " :No origin\r\n")
 
 #define ERR_BADPING(nickname) (":" + SERVER_NAME + "513 " + nickname + " Badping" + "\r\n")
 #define RPL_NAMREPLY(nickname, channel, list_client) (":" + SERVER_NAME + "353 " + nickname + " = " + channel + " :" + list_client  + "\r\n")
@@ -56,3 +57,7 @@
 #define RPL_NOTOPIC(nickname, channel) (":" + SERVER_NAME + "331 " + nickname + " " + channel + " :No topic is set" + "\r\n")
 #define RPL_TOPIC(nickname, channel, topic) (":" + SERVER_NAME + "332 " + nickname + " " + channel + "\r\n")
 #define ROL_TOPICWHOTIME(nickname, channel, concerned_client_nickname, time) (":" + SERVER_NAME + "333 " + nickname + " " + channel + " " + concerned_client_nickname + " " + time + "\r\n")
+
+// macro command format
+#define PONG(nickname) (::string(":") + SERVER_NAME + " PONG " + nickname + "\r\n")
+
