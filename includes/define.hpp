@@ -7,6 +7,7 @@
 #define BUFFER_SIZE 1024
 #define VERSION "1"
 
+#define FORMAT_REPLY(num_rply_numb, nickname) (std::string(":") + SERVER_NAME + " " + num_rply_numb + " " + nickname + " ")
 // Reponses numeriques
 #define RPL_WELCOME(nickname) (":" + SERVER_NAME + " 001 " + nickname + " :Welcome to the Internet Relay Network " + nickname + "\r\n")
 #define RPL_YOURHOST(nickname) (":" + SERVER_NAME + " 002 " + nickname + " Your host is " + SERVER_NAME + ", running version " + VERSION + "\r\n")
@@ -16,8 +17,11 @@
 							":" + SERVER_NAME + " 371 " + nickname + " :" + "written by dly, lgillard, alambert" \
 							":" + SERVER_NAME + " 371 " + nickname + " :" + "version 1.0")
 
+
+#define RPL_VERSION(nickname) (FORMAT_REPLY("351", nickname) + VERSION + " " + SERVER_NAME + ":Version of ircserv " + "\r\n")
+#define ERR_NOSUCHSERVER(nickname) (FORMAT_REPLY("402", nickname) + SERVER_NAME + ":No such server" + "\r\n")
+#define RPL_ENDOFINFO(nickname) (std::string(":") + SERVER_NAME + " 374 " + nickname + " " + ":End of /INFO list. " + "\r\n")
 #define RPL_CHANNELMODEIS(nickname, channel, channel_mode) (":" + SERVER_NAME + " 324 " + nickname + " " + channel + " " + channel_mode + "\r\n")
-#define RPL_ENDOFINFO(nickname) (std::string(":") + SERVER_NAME + " 374 " + nickname + " " + SERVER_NAME + " " + VERSION + "\r\n")
 #define RPL_CREATIONTIME(nickname, channel, date) (":" + SERVER_NAME + " 329 " + nickname + " " + channel + " " + date + "\r\n")
 #define RPL_ENDOFBANLIST(nickname, channel) (":" + SERVER_NAME + " 368 " + nickname + " " + channel + " :End of channel ban list" + "\r\n")
 #define ERR_UNKNOWNMODE(nickname, mode) (":" + SERVER_NAME + " 472 " + nickname + " " + mode + " :is unknown mode char to me" + "\r\n")
