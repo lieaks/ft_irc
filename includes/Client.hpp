@@ -51,14 +51,13 @@ class Client
 
 		void				clearInput() { _input.clear(); };
 
+		void				send_message(const std::string message);
+
 		// channel related
-		bool				joinChannel(Channel *channel);
+		void				joinChannel(Channel *channel);
 		void				leaveChannel(Channel *channel);
 		void				leaveAllChannels();
 		void				leaveActiveChannel();
-
-		// socket related
-		void				send_message(const std::string message);
 
 		// modes related
 		void	addMode(ClientModes mode) { _modes |= mode; };

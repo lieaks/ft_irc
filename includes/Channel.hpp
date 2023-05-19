@@ -32,9 +32,14 @@ class Channel
 		std::vector<Client *>	_clients;
 		std::vector<Client *>	_operators;
 		std::vector<Client *>	_banned;
+		std::vector<Client *>	_invited;
 		Client					*_creator;
 		int						_modes;
 		time_t					_created_at;
+
+		void	addToVector(std::vector<Client *> &vec, Client *client);
+		void	removeFromVector(std::vector<Client *> &vec, Client *client);
+		bool	isInVector(std::vector<Client *> &vec, Client *client);
 
 	public:
 		Channel(std::string name, std::string topic = "topic", Client *creator = NULL);
@@ -57,22 +62,25 @@ class Channel
 		void	setLimit(size_t limit) { _limit = limit; };
 		void	setCreator(Client *creator) { _creator = creator; };
 
-		// clients related
-		bool	addClient(Client *client);
-		void	removeClient(Client *client);
 		void	send_message(const std::string message);
-		void	addOperator(Client *client);
-		void	removeOperator(Client *client);
-		bool	isOperator(Client *client);
+
+		// clients related
+		void	addClient(Client *client) { addToVector(_clients, client); };
+		void	removeClient(Client *client) { removeFromVector(_clients, client); };
+		bool 	isClient(Client *client) { return isInVector(_clients, client); };
+		void	addOperator(Client *client) { addToVector(_operators, client); };
+		void	removeOperator(Client *client) { removeFromVector(_operators, client); };
+		bool	isOperator(Client *client) { return isInVector(_operators, client); };
+		void	addInvitation(Client *client) { addToVector(_invited, client); };
+		void	removeInvitation(Client *client) { removeFromVector(_invited, client); };
+		bool	isInvited(Client *client) { return isInVector(_invited, client); };
+		void	addBan(Client *client) { addToVector(_banned, client); };
+		void	removeBan(Client *client) { removeFromVector(_banned, client); };
+		bool	isBanned(Client *client) { return isInVector(_banned, client); };
 
 		// modes related
 		void	addMode(ChannelModes mode) { _modes |= mode; };
 		void	removeMode(ChannelModes mode) { _modes &= ~mode; };
 		void	toggleMode(ChannelModes mode) { _modes ^= mode; };
 		bool	isModeSet(ChannelModes mode) { return _modes & mode; };
-
-		// ban mask
-		void	addBan(Client *client);
-		void	removeBan(Client *client);
-		bool	isBanned(Client *client);
 };

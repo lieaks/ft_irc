@@ -12,13 +12,11 @@ Client::Client(int client_fd, std::string hostname) :
 		std::cout << "new client with fd: " << _client_fd << std::endl;
 };
 
-Client::~Client()
-{
+Client::~Client() {
 	leaveAllChannels();
 }
 
-Channel*	Client::getChannel(const std::string channel_name)
-{
+Channel*	Client::getChannel(const std::string channel_name) {
 	std::vector<Channel*>::iterator it = _channels.begin();
 	while (it != _channels.end()) {
 		if ((*it)->getName() == channel_name)
@@ -28,17 +26,12 @@ Channel*	Client::getChannel(const std::string channel_name)
 	return NULL;
 }
 
-bool	Client::joinChannel(Channel *channel)
-{
-	if (channel->addClient(this)) {
-		_channels.push_back(channel);
-		return true;
-	}
-	return false;
+void	Client::joinChannel(Channel *channel) {
+	channel->addClient(this);
+	_channels.push_back(channel);
 }
 
-void	Client::leaveChannel(Channel *channel)
-{
+void	Client::leaveChannel(Channel *channel) {
 	std::vector<Channel*>::iterator it = std::find(_channels.begin(), _channels.end(), channel);
 	if (it == _channels.end())
 		return ;
@@ -48,8 +41,7 @@ void	Client::leaveChannel(Channel *channel)
 	_channels.erase(it);
 }
 
-void	Client::leaveAllChannels()
-{
+void	Client::leaveAllChannels() {
 	std::vector<Channel*>::iterator it = _channels.begin();
 	while (it != _channels.end()) {
 		leaveChannel(*it);
@@ -57,16 +49,13 @@ void	Client::leaveAllChannels()
 	_active_channel = NULL;
 }
 
-void	Client::leaveActiveChannel()
-{
+void	Client::leaveActiveChannel() {
 	if (!_active_channel)
 		return ;
 	leaveChannel(_active_channel);
 	_active_channel = NULL;
 }
 
-void	Client::send_message(const std::string message)
-{
-	// std::cout << "sending message to client " + _nickname + ": " << message << std::endl;
+void	Client::send_message(const std::string message) {
 	send(_client_fd, message.c_str(), message.length(), MSG_NOSIGNAL);
 }

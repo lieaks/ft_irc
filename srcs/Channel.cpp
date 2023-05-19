@@ -18,6 +18,34 @@ Channel::~Channel() {
 		(*it)->leaveChannel(this);
 };
 
+
+void	Channel::addToVector(std::vector<Client *> &vec, Client *client) {
+	if (!client)
+		return ;
+	std::vector<Client*>::iterator it = std::find(vec.begin(), vec.end(), client);
+	if (it != vec.end())
+		return ;
+	vec.push_back(client);
+}
+
+void	Channel::removeFromVector(std::vector<Client *> &vec, Client *client) {
+	if (!client)
+		return ;
+	std::vector<Client*>::iterator it = std::find(vec.begin(), vec.end(), client);
+	if (it == vec.end())
+		return ;
+	vec.erase(it);
+}
+
+bool	Channel::isInVector(std::vector<Client *> &vec, Client *client) {
+ 	if (!client)
+		return false;
+	std::vector<Client*>::iterator it = std::find(vec.begin(), vec.end(), client);
+	if (it == vec.end())
+		return false;
+	return true;
+}
+
 Client	*Channel::getClient(std::string nickname) {
 	std::vector<Client*>::iterator it = _clients.begin();
 	while (it != _clients.end()) {
@@ -28,67 +56,10 @@ Client	*Channel::getClient(std::string nickname) {
 	return NULL;
 }
 
-bool	Channel::addClient(Client *client) {
-	std::vector<Client*>::iterator it = std::find(_clients.begin(), _clients.end(), client);
-	if (it != _clients.end())
-		return false;
-	_clients.push_back(client);
-	return true;
-}
-
-void	Channel::removeClient(Client *client) {
-	std::vector<Client*>::iterator it = std::find(_clients.begin(), _clients.end(), client);
-	if (it == _clients.end())
-		return ;
-	_clients.erase(it);
-}
-
 void	Channel::send_message(const std::string message) {
 	std::vector<Client*>::iterator it = _clients.begin();
 	while (it != _clients.end()) {
 		(*it)->send_message(message);
 		it++;
 	}
-}
-
-void	Channel::addOperator(Client *client) {
-	std::vector<Client*>::iterator it = std::find(_operators.begin(), _operators.end(), client);
-	if (it != _operators.end())
-		return ;
-	_operators.push_back(client);
-}
-
-void	Channel::removeOperator(Client *client) {
-	std::vector<Client *>::iterator it = std::find(_operators.begin(), _operators.end(), client);
-	if (it == _operators.end())
-		return ;
-	_operators.erase(it);
-}
-
-bool	Channel::isOperator(Client *client) {
-	std::vector<Client *>::iterator it = std::find(_operators.begin(), _operators.end(), client);
-	if (it == _operators.end())
-		return false;
-	return true;
-}
-
-void	Channel::addBan(Client *client) {
-	std::vector<Client *>::iterator it = std::find(_banned.begin(), _banned.end(), client);
-	if (it != _banned.end())
-		return ;
-	_banned.push_back(client);
-}
-
-void	Channel::removeBan(Client *client) {
-	std::vector<Client *>::iterator it = std::find(_banned.begin(), _banned.end(), client);
-	if (it == _banned.end())
-		return ;
-	_banned.erase(it);
-}
-
-bool	Channel::isBanned(Client *client) {
-	std::vector<Client *>::iterator it = std::find(_banned.begin(), _banned.end(), client);
-	if (it == _banned.end())
-		return false;
-	return true;
 }
