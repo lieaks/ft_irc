@@ -32,6 +32,7 @@ bool	cmd_nick(Server &server, Client &client, std::vector<std::string> &input) {
 	if (client.getNickname() == input[1]) {
 		return true;
 	}
+	// std::cout << "Nickname: " << input[1] << "\"" << std::endl;
 	if (!parse_nick(input[1])) {
 		// TODO: send ERR_ERRONEUSNICKNAME
 		client.send_message(ERR_ERRONEUSNICKNAME(input[1]));

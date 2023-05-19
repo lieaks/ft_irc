@@ -115,14 +115,17 @@ void Server::_handle_new_msg(int i) {
     else if (ret == 0) {
         // disconnect
     } else {
+		std::string	cmd;
+		std::vector<std::string> args;
+
         input_buf = client->getInput() + buffer;
         client->setInput(input_buf);
-        size_t pos = client->getInput().find("\n");
+        size_t pos = client->getInput().find_first_of("\r\n");
         while (pos != std::string::npos) {
-            std::string cmd = client->getInput().substr(0, pos);
+			cmd = client->getInput().substr(0, pos);
             client->setInput(client->getInput().substr(pos + 1));
-            std::cout << "Input: " << cmd << std::endl;
-            std::vector<std::string> args = split(cmd, " ");
+            // std::cout << "Input: " << cmd << std::endl;
+            args = split(cmd, " ");
             if (args.size()) {
                 if (_commands.find(args[0]) != _commands.end()) {
                     _commands[args[0]](*this, *client, args);
@@ -133,7 +136,7 @@ void Server::_handle_new_msg(int i) {
             else {
                 std::cout << "Error: Invalid command" << std::endl;
             }
-            pos = client->getInput().find("\n");
+            pos = client->getInput().find_first_of("\r\n");
         }
     }
 };
