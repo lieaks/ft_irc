@@ -14,3 +14,4 @@ bool	cmd_pass(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_ping(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_info(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_version(Server &server, Client &client, std::vector<std::string> &input);
+bool	cmd_time(Server &server, Client &client, std::vector<std::string> &input);

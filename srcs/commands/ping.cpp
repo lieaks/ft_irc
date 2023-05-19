@@ -2,7 +2,7 @@
 
 bool	cmd_ping(Server &server, Client &client, std::vector<std::string> &input)
 {
-	if (input.empty()) {
+	if (input.size() < 2) {
 		client.send_message(ERR_NOORIGIN(client.getNickname()));
 		return false;
 	}

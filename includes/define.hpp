@@ -14,12 +14,13 @@
 #define RPL_CREATED(nickname, date) (":" + SERVER_NAME + " 003 " + nickname + " :This server was created " + date + "\r\n")
 #define RPL_MYINFO(nickname) (":" + SERVER_NAME + " 004 " + nickname + " " + SERVER_NAME + " " + VERSION + "\r\n")
 #define RPL_INFO(nickname) (std::string(":") + SERVER_NAME + " 371 " + nickname + " :" + SERVER_NAME + "\r\n" + \
-							":" + SERVER_NAME + " 371 " + nickname + " :" + "written by dly, lgillard, alambert" \
+							":" + SERVER_NAME + " 371 " + nickname + " :" + "written by dly, lgillard, axlamber" \
 							":" + SERVER_NAME + " 371 " + nickname + " :" + "version 1.0")
 
 
-#define RPL_VERSION(nickname) (FORMAT_REPLY("351", nickname) + VERSION + " " + SERVER_NAME + ":Version of ircserv " + "\r\n")
-#define ERR_NOSUCHSERVER(nickname) (FORMAT_REPLY("402", nickname) + SERVER_NAME + ":No such server" + "\r\n")
+#define RPL_VERSION(nickname) (FORMAT_REPLY("351", nickname) + VERSION + " " + SERVER_NAME + " :Version of ircserv " + "\r\n")
+#define RPL_TIME(nickname, time) (FORMAT_REPLY("391", nickname) + SERVER_NAME + " :" + time + "\r\n")
+#define ERR_NOSUCHSERVER(nickname) (FORMAT_REPLY("402", nickname) + SERVER_NAME + " :" + "\r\n")
 #define RPL_ENDOFINFO(nickname) (std::string(":") + SERVER_NAME + " 374 " + nickname + " " + ":End of /INFO list. " + "\r\n")
 #define RPL_CHANNELMODEIS(nickname, channel, channel_mode) (":" + SERVER_NAME + " 324 " + nickname + " " + channel + " " + channel_mode + "\r\n")
 #define RPL_CREATIONTIME(nickname, channel, date) (":" + SERVER_NAME + " 329 " + nickname + " " + channel + " " + date + "\r\n")
