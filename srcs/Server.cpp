@@ -102,39 +102,40 @@ void Server::_handle_connection() {
 };
 
 void Server::_handle_new_msg(int i) {
-	char	buffer[BUFFER_SIZE];
-	std::string input_buf;
-	int		ret;
-	Client* client;
+    char	buffer[BUFFER_SIZE];
+    std::string input_buf;
+    int		ret;
+    Client* client;
 
-	std::map<int, Client*>::iterator it = _vector_clients.find(_epoll_tab_events[i].data.fd);
-	client = it->second;
-	memset(buffer, 0, BUFFER_SIZE);
-	if ((ret = recv(_epoll_tab_events[i].data.fd, buffer, BUFFER_SIZE, 0)) < 0)
-		throw std::runtime_error("Error: read msg");
-	else if (ret == 0) {
-		// disconnect
-	} else {
-		input_buf = client->getInput() + buffer;
-		client->setInput(input_buf);
-		if (client->getInput().find("\n") == std::string::npos)
-			return ;
-		else {
-			client->setInput(client->getInput().substr(0, client->getInput().size() - 1));
-			std::vector<std::string> cmd = split(client->getInput(), " ");
-			if (cmd.size()) {
-				if (_commands.find(cmd[0]) != _commands.end()) {
-					_commands[cmd[0]](*this, *client, cmd);
-				} else {
-					std::cout << "Error: Invalid command" << std::endl;
-				}
-			}
-			else {
-				std::cout << "Error: Invalid command" << std::endl;
-			}
-			client->clearInput();
-		}
-	}
+    std::map<int, Client*>::iterator it = _vector_clients.find(_epoll_tab_events[i].data.fd);
+    client = it->second;
+    memset(buffer, 0, BUFFER_SIZE);
+    if ((ret = recv(_epoll_tab_events[i].data.fd, buffer, BUFFER_SIZE, 0)) < 0)
+        throw std::runtime_error("Error: read msg");
+    else if (ret == 0) {
+        // disconnect
+    } else {
+        input_buf = client->getInput() + buffer;
+        client->setInput(input_buf);
+        size_t pos = client->getInput().find("\n");
+        while (pos != std::string::npos) {
+            std::string cmd = client->getInput().substr(0, pos);
+            client->setInput(client->getInput().substr(pos + 1));
+            std::cout << "Input: " << cmd << std::endl;
+            std::vector<std::string> args = split(cmd, " ");
+            if (args.size()) {
+                if (_commands.find(args[0]) != _commands.end()) {
+                    _commands[args[0]](*this, *client, args);
+                } else {
+                    std::cout << "Error: Invalid command" << std::endl;
+                }
+            }
+            else {
+                std::cout << "Error: Invalid command" << std::endl;
+            }
+            pos = client->getInput().find("\n");
+        }
+    }
 };
 
 const std::string	Server::getPassword() const {return _password;}
