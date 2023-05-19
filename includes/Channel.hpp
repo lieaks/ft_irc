@@ -33,6 +33,7 @@ class Channel
 		std::vector<Client *>	_operators;
 		std::vector<Client *>	_banned;
 		std::vector<Client *>	_invited;
+		std::vector<Client *>	_voice;
 		Client					*_creator;
 		int						_modes;
 		time_t					_created_at;
@@ -77,6 +78,9 @@ class Channel
 		void	addBan(Client *client) { addToVector(_banned, client); };
 		void	removeBan(Client *client) { removeFromVector(_banned, client); };
 		bool	isBanned(Client *client) { return isInVector(_banned, client); };
+		void	addVoice(Client *client) { addToVector(_voice, client); };
+		void	removeVoice(Client *client) { removeFromVector(_voice, client); };
+		bool	isVoice(Client *client) { return isInVector(_voice, client); };
 
 		// modes related
 		void	addMode(ChannelModes mode) { _modes |= mode; };

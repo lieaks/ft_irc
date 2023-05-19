@@ -9,7 +9,8 @@ ircserv
 helper
 ircbot
 *.d
-.pid
+*.pid
+stdout.txt
 
 # Debug files
 *.dSYM/

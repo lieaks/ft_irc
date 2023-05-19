@@ -130,18 +130,20 @@ void Server::_handle_new_msg(int i) {
                 if (_commands.find(args[0]) != _commands.end()) {
                     _commands[args[0]](*this, *client, args);
                 } else {
-                    std::cout << "Error: Invalid command" << std::endl;
+                    /* std::cout << "Error: Invalid command" << std::endl; */
+					client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
                 }
             }
             else {
-                std::cout << "Error: Invalid command" << std::endl;
+                /* std::cout << "Error: Invalid command" << std::endl; */
+				client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
             }
             pos = client->getInput().find_first_of("\r\n");
         }
     }
 };
 
-const std::string	Server::getPassword() const {return _password;}
+const std::string	Server::getPassword() const { return _password; }
 
 void	Server::_init_commands( void ) {
 	// For now, just add NICK, USER and PASS
