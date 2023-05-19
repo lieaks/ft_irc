@@ -5,15 +5,19 @@
 #define max_clients 10
 #define MAX_EVENTS 10
 #define BUFFER_SIZE 1024
-#define VERSION 1
+#define VERSION "1"
 
 // Reponses numeriques
 #define RPL_WELCOME(nickname) (":" + SERVER_NAME + " 001 " + nickname + " :Welcome to the Internet Relay Network " + nickname + "\r\n")
 #define RPL_YOURHOST(nickname) (":" + SERVER_NAME + " 002 " + nickname + " Your host is " + SERVER_NAME + ", running version " + VERSION + "\r\n")
 #define RPL_CREATED(nickname, date) (":" + SERVER_NAME + " 003 " + nickname + " :This server was created " + date + "\r\n")
 #define RPL_MYINFO(nickname) (":" + SERVER_NAME + " 004 " + nickname + " " + SERVER_NAME + " " + VERSION + "\r\n")
+#define RPL_INFO(nickname) (std::string(":") + SERVER_NAME + " 371 " + nickname + " :" + SERVER_NAME + "\r\n" + \
+							":" + SERVER_NAME + " 371 " + nickname + " :" + "written by dly, lgillard, alambert" \
+							":" + SERVER_NAME + " 371 " + nickname + " :" + "version 1.0")
 
 #define RPL_CHANNELMODEIS(nickname, channel, channel_mode) (":" + SERVER_NAME + " 324 " + nickname + " " + channel + " " + channel_mode + "\r\n")
+#define RPL_ENDOFINFO(nickname) (std::string(":") + SERVER_NAME + " 374 " + nickname + " " + SERVER_NAME + " " + VERSION + "\r\n")
 #define RPL_CREATIONTIME(nickname, channel, date) (":" + SERVER_NAME + " 329 " + nickname + " " + channel + " " + date + "\r\n")
 #define RPL_ENDOFBANLIST(nickname, channel) (":" + SERVER_NAME + " 368 " + nickname + " " + channel + " :End of channel ban list" + "\r\n")
 #define ERR_UNKNOWNMODE(nickname, mode) (":" + SERVER_NAME + " 472 " + nickname + " " + mode + " :is unknown mode char to me" + "\r\n")
