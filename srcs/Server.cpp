@@ -32,6 +32,31 @@ Server::~Server() {
 	}
 };
 
+void	Server::addOperator(Client *client) {
+	std::vector<Client *>::iterator it = _operators.begin();
+	while (it != _operators.end())
+		if ((*it)->getNickname() == client->getNickname())
+			return ;
+	_operators.push_back(client);
+}
+
+void	Server::removeOperator(Client *client) {
+	std::vector<Client *>::iterator it = _operators.begin();
+	while (it != _operators.end()) {
+		if ((*it)->getNickname() == client->getNickname())
+			_operators.erase(it);
+	}
+}
+
+bool	Server::isOperator(Client *client) {
+	std::vector<Client *>::iterator it = _operators.begin();
+	while (it != _operators.end()) {
+		if ((*it)->getNickname() == client->getNickname())
+			return true;
+	}
+	return false;
+}
+
 Client	*Server::getClient(const std::string nickname) {
 	std::map<int, Client *>::iterator it = _vector_clients.begin();
 	while (it != _vector_clients.end()) {
@@ -163,8 +188,6 @@ void Server::_handle_new_msg(int i) {
         }
     }
 };
-
-const std::string	Server::getPassword() const { return _password; }
 
 void	Server::_init_commands( void ) {
 	// For now, just add NICK, USER and PASS

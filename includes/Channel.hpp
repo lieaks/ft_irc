@@ -30,7 +30,6 @@ class Channel
 		std::string				_key;
 		size_t					_limit;
 		std::vector<Client *>	_clients;
-		std::vector<Client *>	_operators;
 		std::vector<Client *>	_banned;
 		std::vector<Client *>	_invited;
 		std::vector<Client *>	_voice;
@@ -50,7 +49,6 @@ class Channel
 		const std::string	getTopic() const { return _topic; };
 		const std::string	getKey() const { return _key; };
 		std::vector<Client *>	getClients() { return _clients; };
-		std::vector<Client *>	getOperators() { return _operators; };
 		Client				*getClient(const std::string nickname);
 		Client				*getCreator() { return _creator; };
 		int					&getMode() { return _modes; };
@@ -69,9 +67,6 @@ class Channel
 		void	addClient(Client *client) { addToVector(_clients, client); };
 		void	removeClient(Client *client) { removeFromVector(_clients, client); };
 		bool 	isClient(Client *client) { return isInVector(_clients, client); };
-		void	addOperator(Client *client) { addToVector(_operators, client); };
-		void	removeOperator(Client *client) { removeFromVector(_operators, client); };
-		bool	isOperator(Client *client) { return isInVector(_operators, client); };
 		void	addInvitation(Client *client) { addToVector(_invited, client); };
 		void	removeInvitation(Client *client) { removeFromVector(_invited, client); };
 		bool	isInvited(Client *client) { return isInVector(_invited, client); };
