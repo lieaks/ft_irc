@@ -9,7 +9,7 @@
 
 #define FORMAT_REPLY(num_rply_numb, nickname) (std::string(":") + SERVER_NAME + " " + num_rply_numb + " " + nickname + " ")
 // Reponses numeriques
-#define RPL_WELCOME(nickname) (":" + SERVER_NAME + " 001 " + nickname + " :Welcome to the Internet Relay Network " + nickname + "\r\n")
+#define RPL_WELCOME(nickname) (std::string(":") + SERVER_NAME + " 001 " + nickname + " :Welcome to the Internet Relay Network " + nickname + "\r\n")
 #define RPL_YOURHOST(nickname) (":" + SERVER_NAME + " 002 " + nickname + " Your host is " + SERVER_NAME + ", running version " + VERSION + "\r\n")
 #define RPL_CREATED(nickname, date) (":" + SERVER_NAME + " 003 " + nickname + " :This server was created " + date + "\r\n")
 #define RPL_MYINFO(nickname) (":" + SERVER_NAME + " 004 " + nickname + " " + SERVER_NAME + " " + VERSION + "\r\n")

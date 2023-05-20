@@ -27,26 +27,29 @@ class Client
 		std::vector<Channel *>	_channels;
 		int						_modes;
 		bool					_isAuth;
+		bool					_isRegistered;
 
 	public:
 		Client(int client_fd, std::string hostname);
 		~Client();
 
 		// Getters and setters
-		const std::string	getInput() const { return _input; };
-		const std::string	getNickname() const { return _nickname; };
-		const std::string	getRealname() const { return _realname; };
-		int					getFd() const { return _client_fd; };
+		const std::string		getInput() const { return _input; };
+		const std::string		getNickname() const { return _nickname; };
+		const std::string		getRealname() const { return _realname; };
+		int						getFd() const { return _client_fd; };
 		std::vector<Channel *>&	getChannels() { return _channels; };
-		Channel				*getActiveChannel() const { return _active_channel; };
-		Channel				*getChannel(std::string const channel_name);
-		bool			isAuth() const { return _isAuth; }
+		Channel					*getActiveChannel() const { return _active_channel; };
+		Channel					*getChannel(std::string const channel_name);
+		bool					isAuth() const { return _isAuth; }
+		bool					isRegistered() const { return _isRegistered; }
 
 		void				setActiveChannel(Channel *channel) { _active_channel = channel; };
 		void				setInput(std::string input) { _input = input; };
 		void				setNickname(std::string const &nickname ) { _nickname = nickname; };
 		void				setRealname( std::string const &realname ) { _realname = realname; };
 		void				setAuth(bool isAuth) { _isAuth = isAuth; };
+		void				setRegistered(bool isRegistered) { _isRegistered = isRegistered; };
 		int					&getModes() { return _modes; };
 
 		void				clearInput() { _input.clear(); };

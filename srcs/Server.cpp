@@ -126,6 +126,7 @@ void Server::_handle_new_msg(int i) {
 			if (client->getInput().size() > pos + 1 && client->getInput()[pos + 1] == '\n')
 				pos++;
 			client->setInput(client->getInput().substr(pos + 1));
+			std::cout << "cmd: " << cmd << std::endl;
             args = split(cmd, " ");
             if (args.size()) {
                 if (_commands.find(args[0]) != _commands.end())
