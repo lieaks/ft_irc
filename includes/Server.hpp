@@ -47,9 +47,12 @@ class Server
 		void	run_server();
 
 		// getter
-		std::map<int, Client*>			&getClients() { return _vector_clients; };
-		const std::string				getPassword() const;
-		std::vector<Channel *>		    &getChannels() { return _vector_channels; };
+		std::map<int, Client*>		&getClients() { return _vector_clients; };
+		const std::string			getPassword() const;
+		std::vector<Channel *>		&getChannels() { return _vector_channels; };
+		Client						*getClient(const std::string nickname);
+		Channel						*getChannel(const std::string name);
+		
 };
 
 /* class CustomException : public std::exception { */

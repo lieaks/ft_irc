@@ -32,6 +32,25 @@ Server::~Server() {
 	}
 };
 
+Client	*Server::getClient(const std::string nickname) {
+	std::map<int, Client *>::iterator it = _vector_clients.begin();
+	while (it != _vector_clients.end()) {
+		if ((it->second)->getNickname() == nickname)
+			return it->second;
+		it++;
+	}
+	return NULL;
+}
+
+Channel *Server::getChannel(const std::string name) {
+	std::vector<Channel *>::iterator it = _vector_channels.begin();
+	while (it != _vector_channels.end()) {
+		if ((*it)->getName() == name)
+			return *it;
+	}
+	return NULL;
+}
+
 void Server::_createsocket() {
 	// AF_INET = addr ip v4 || SOCK_STREAM = protocol TCP 
 	if ((_socket_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
