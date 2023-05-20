@@ -52,6 +52,7 @@ class Server
 		// getter
 		std::map<int, Client*>		&getClients() { return _vector_clients; };
 		const std::string			getPassword() const { return _password; };
+		const std::string			getOperatorPassword() const { return _operators_password; };
 		std::vector<Channel *>		&getChannels() { return _vector_channels; };
 		Client						*getClient(const std::string nickname);
 		Channel						*getChannel(const std::string name);
