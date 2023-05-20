@@ -52,6 +52,9 @@
 #define ERR_WASNOSUCHNICK(nickname, other_nickname) (std::string(":") + SERVER_NAME + " 406 " + nickname + " " + other_nickname + " :There was no such nickname\r\n")
 #define ERR_NICKNAMEINUSE(nickname) (std::string(":") + SERVER_NAME + " 433 " + nickname + " :Nickname is already in use\r\n")
 
+
+#define ERR_NORECIPIENT(nickname, command) (std::string(":") + SERVER_NAME + " 411 " + nickname + " :No recipient given " + command + "\r\n")
+#define ERR_NOTEXTTOSEND(nickname) (std::string(":") + SERVER_NAME + " 412 " + nickname + " :No text to send " + "\r\n")
 #define ERR_UNKNOWNCOMMAND(nickname, command) (std::string(":") + SERVER_NAME + " 421 " + nickname + " " + command + " :Unknown command")
 #define ERR_NEEDMOREPARAMS(nickname, command) (std::string(":") + SERVER_NAME + " 461 " + nickname + " " + command + " :Not enough parameters\r\n")
 #define ERR_ALREADYREGISTRED(nickname) (std::string(":") + SERVER_NAME + " 462 " + nickname + " :Already registred\r\n")

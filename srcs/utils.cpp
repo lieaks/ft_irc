@@ -16,6 +16,18 @@ std::vector<std::string> split(std::string str, std::string delimiters){
 	return tokens;
 };
 
+std::string join(std::vector<std::string> vec, std::string delimiters, int pos)
+{
+	std::string res;
+	for (std::vector<std::string>::iterator it = vec.begin() + pos; it != vec.end(); it++)
+	{
+		res.append(*it);
+		if (it != vec.end() - 1)
+			res.append(delimiters);
+	}
+	return res;
+}
+
 void displayCommands(Client *client, std::string arg) {
 	std::cout << "from [" << client->getInput() << " ] ";
 	std::cout << arg << std::endl;
