@@ -8,17 +8,19 @@
 #define VERSION "1"
 
 #define FORMAT_REPLY(num_rply_numb, nickname) (std::string(":") + SERVER_NAME + " " + num_rply_numb + " " + nickname + " ")
+#define CLIENT_ID(nickname, username, command) (":" + nickname + "!~" + username + "@" + SERVER_NAME + " " + command + " ")
+
 // Reponses numeriques
 #define RPL_WELCOME(nickname) (std::string(":") + SERVER_NAME + " 001 " + nickname + " :Welcome to the Internet Relay Network " + nickname + "\r\n")
 #define RPL_YOURHOST(nickname) (std::string(":") + SERVER_NAME + " 002 " + nickname + " Your host is " + SERVER_NAME + ", running version " + VERSION + "\r\n")
 #define RPL_CREATED(nickname, date) (std::string(":") + SERVER_NAME + " 003 " + nickname + " :This server was created " + date + "\r\n")
 #define RPL_MYINFO(nickname) (std::string(":") + SERVER_NAME + " 004 " + nickname + " " + SERVER_NAME + " " + VERSION + "\r\n")
 #define RPL_INFO(nickname) (std::string(":") + SERVER_NAME + " 371 " + nickname + " :" + SERVER_NAME + "\r\n" + \
-							":" + SERVER_NAME + " 371 " + nickname + " :" + "written by dly, lgillard, axlamber" \
-							":" + SERVER_NAME + " 371 " + nickname + " :" + "version 1.0")
+							":" + SERVER_NAME + " 371 " + nickname + " :" + "written by dly, lgillard, axlamber" + "\r\n" + \
+							":" + SERVER_NAME + " 371 " + nickname + " :" + "version 1.0" + "\r\n")
 
 
-#define RPL_VERSION(nickname) (FORMAT_REPLY("351", nickname) + VERSION + " " + SERVER_NAME + " :Version of ircserv " + "\r\n")
+#define RPL_VERSION(nickname) (FORMAT_REPLY("351", nickname) + "version " + VERSION + " " + SERVER_NAME + " :Version of ircserv " + "\r\n")
 #define RPL_TIME(nickname, time) (FORMAT_REPLY("391", nickname) + SERVER_NAME + " :" + time + "\r\n")
 #define ERR_NOSUCHSERVER(nickname) (FORMAT_REPLY("402", nickname) + SERVER_NAME + " :" + "\r\n")
 #define RPL_ENDOFINFO(nickname) (std::string(":") + SERVER_NAME + " 374 " + nickname + " " + ":End of /INFO list. " + "\r\n")
@@ -69,5 +71,6 @@
 #define RPL_INVITING(nickname, target, channel) (std::string(":") + SERVER_NAME + "341 " + nickname + " " + target + " " + channel + "\r\n")
 
 // macro command format
-#define PONG(nickname) (std::string(":") + SERVER_NAME + " PONG " + nickname + "\r\n")
+#define PONG(nickname) (std::string(":") + SERVER_NAME + " PONG " + SERVER_NAME + " :" + SERVER_NAME + "\r\n")
+#define NICK(nickname, username, new_nickname) (CLIENT_ID(nickname, username, "NICK") + ":" + new_nickname + "\r\n")
 

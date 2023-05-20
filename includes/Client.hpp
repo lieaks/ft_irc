@@ -35,6 +35,7 @@ class Client
 
 		// Getters and setters
 		const std::string		getInput() const { return _input; };
+		const std::string		getHostname() const { return _hostname; };
 		const std::string		getNickname() const { return _nickname; };
 		const std::string		getRealname() const { return _realname; };
 		int						getFd() const { return _client_fd; };

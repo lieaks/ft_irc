@@ -1,6 +1,5 @@
 #include "../includes/Server.hpp"
 #include <asm-generic/socket.h>
-#include <cstring>
 #include <netinet/in.h>
 #include <sys/epoll.h>
 #include <sys/socket.h>
@@ -195,4 +194,8 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("USER", &cmd_user));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PASS", &cmd_pass));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("INVITE", &cmd_invite));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PING", &cmd_ping));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("info", &cmd_info));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("version", &cmd_version));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("time", &cmd_time));
 }

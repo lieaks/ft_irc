@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <map>
 #include <vector>
+#include <cstring>
 
 // external lib
 #include <sys/socket.h> // socket(), setsocketopt(), bind(), listen()

@@ -14,6 +14,7 @@
 
 bool	cmd_version(Server &server, Client &client, std::vector<std::string> &input)
 {
+	(void)server;
 	if (input.size() > 1 && input[1] != SERVER_NAME)
 	{
 		client.send_message(ERR_NOSUCHSERVER(client.getNickname()));
