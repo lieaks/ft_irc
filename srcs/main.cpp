@@ -3,6 +3,8 @@
 #include <cstring>
 #include <cerrno>
 #include "../includes/Server.hpp"
+#include <fstream>
+#include <string>
 
 int main(int ac, char **av)
 {
@@ -19,9 +21,13 @@ int main(int ac, char **av)
 	else if (port < 0 || port > 65535)
 		return (std::cerr << "Error: Invalid port \"" << av[1] << "\": must be between 0 and 65535" << std::endl, 1);
 
+	std::ifstream	env_file(".env");
+	std::string password;
+	env_file >> password;
+
 	try {
 		std::cout << "port: " << port << std::endl;
-		Server irc(port, av[2]);
+		Server irc(port, av[2], password);
 		irc.run_server();
 	}
 	catch (const std::exception &e) {

@@ -6,6 +6,7 @@
 #define MAX_EVENTS 10
 #define BUFFER_SIZE 1024
 #define VERSION "1"
+#define DEFAULT_OPER_PASS "password"
 
 #define FORMAT_REPLY(num_rply_numb, nickname) (std::string(":") + SERVER_NAME + " " + num_rply_numb + " " + nickname + " ")
 #define CLIENT_ID(nickname, username, command) (":" + nickname + "!~" + username + "@" + SERVER_NAME + " " + command + " ")

@@ -33,6 +33,7 @@ class Server
 		// member attributes
 		int 							_port;
 		std::string						_password;
+		std::string						_operators_password;
 		int								_socket_fd;
 		struct sockaddr_in				_socket_addr;
 		int								_epoll_fd;
@@ -44,7 +45,7 @@ class Server
 		std::map<std::string, bool (*)(Server &, Client &, std::vector<std::string> & )>	_commands;
 
 	public:
-		Server(int port, std::string password);
+		Server(int port, std::string password, std::string operators_password = DEFAULT_OPER_PASS);
 		~Server();
 		void	run_server();
 

@@ -6,8 +6,10 @@
 #include <utility>
 #include <vector>
 
-Server::Server(int port, std::string password) :
-		_port(port), _password(password) {
+Server::Server(int port, std::string password, std::string operators_password):
+		_port(port), _password(password), _operators_password(operators_password) {
+	if (_operators_password.empty())
+		_operators_password = DEFAULT_OPER_PASS;
 	_createsocket();
 	_bindsocket();
 	if (listen(_socket_fd, BACKLOG) < 0)
