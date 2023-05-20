@@ -1,6 +1,6 @@
 #include "../../includes/commands.hpp"
 
-bool	cmd_invite(Server &server, Client &client, std::vector<std::string> &input) {
+bool	cmd_oper(Server &server, Client &client, std::vector<std::string> &input) {
 	if (input.size() < 3) {
 		client.send_message(ERR_NEEDMOREPARAMS(client.getNickname(), "INVITE"));
 		return false;
@@ -10,10 +10,6 @@ bool	cmd_invite(Server &server, Client &client, std::vector<std::string> &input)
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), input[1]));
 		return false;
 	}
-	target->send_message(RPL_INVITING(client.getNickname(), target->getNickname(), input[2]));
-	Channel	*channel = server.getChannel(input[2]);
-	if (channel) {
-		channel->addInvitation(target);
-	}
+	// TODO: use input[2] as password
 	return true;
 }
