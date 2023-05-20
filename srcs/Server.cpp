@@ -131,11 +131,15 @@ void Server::_handle_new_msg(int i) {
             if (args.size()) {
                 if (_commands.find(args[0]) != _commands.end())
                     _commands[args[0]](*this, *client, args);
-                else
-					client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
+                // else {
+					// std::cout << "Test1" << std::endl;
+					// client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
+				// }
             }
-            else
+            else {
+				std::cout << "Test2" << std::endl;
 				client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
+			}
             pos = client->getInput().find_first_of("\r\n");
         }
     }
