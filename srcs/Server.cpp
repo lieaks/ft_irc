@@ -123,21 +123,18 @@ void Server::_handle_new_msg(int i) {
         size_t pos = client->getInput().find_first_of("\r\n");
         while (pos != std::string::npos) {
 			cmd = client->getInput().substr(0, pos);
-            client->setInput(client->getInput().substr(pos + 1));
-            // std::cout << "Input: " << cmd << std::endl;
+			if (client->getInput().size() > pos + 1 && client->getInput()[pos + 1] == '\n')
+				pos++;
+			client->setInput(client->getInput().substr(pos + 1));
             args = split(cmd, " ");
             if (args.size()) {
-                if (_commands.find(args[0]) != _commands.end()) {
+                if (_commands.find(args[0]) != _commands.end())
                     _commands[args[0]](*this, *client, args);
-                } else {
-                    /* std::cout << "Error: Invalid command" << std::endl; */
+                else
 					client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
-                }
             }
-            else {
-                /* std::cout << "Error: Invalid command" << std::endl; */
+            else
 				client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
-            }
             pos = client->getInput().find_first_of("\r\n");
         }
     }
