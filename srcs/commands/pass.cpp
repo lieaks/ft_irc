@@ -1,7 +1,7 @@
 #include "../../includes/commands.hpp"
 
 bool	cmd_pass(Server &server, Client &client, std::vector<std::string> &input) {
-	if (input.empty() || input[0].empty()){
+	if (input.size() < 2 || input[0].empty()){
 		client.send_message(ERR_NEEDMOREPARAMS(client.getNickname(), input[0]));
 		return false;
 	}

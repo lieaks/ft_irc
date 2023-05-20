@@ -17,3 +17,5 @@ bool	cmd_version(Server &server, Client &client, std::vector<std::string> &input
 bool	cmd_time(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_invite(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_oper(Server &server, Client &client, std::vector<std::string> &input);
+bool	cmd_notice(Server &server, Client &client, std::vector<std::string> &input);
+bool	cmd_privmsg(Server &server, Client &client, std::vector<std::string> &input);
