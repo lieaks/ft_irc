@@ -36,16 +36,19 @@ Server::~Server() {
 void	Server::addOperator(Client *client) {
 	std::vector<Client *>::iterator it = _operators.begin();
 	while (it != _operators.end())
-		if ((*it)->getNickname() == client->getNickname())
+		if ((*it)->getNickname() == client->getNickname()) {}
 			return ;
 	_operators.push_back(client);
+	client->addMode(OPERATOR);
 }
 
 void	Server::removeOperator(Client *client) {
 	std::vector<Client *>::iterator it = _operators.begin();
 	while (it != _operators.end()) {
-		if ((*it)->getNickname() == client->getNickname())
+		if ((*it)->getNickname() == client->getNickname()) {
 			_operators.erase(it);
+			client->removeMode(OPERATOR);
+		}
 	}
 }
 
@@ -202,4 +205,5 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("oper", &cmd_oper));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("NOTICE", &cmd_notice));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PRIVMSG", &cmd_privmsg));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("WALLOPS", &cmd_wallops));
 }

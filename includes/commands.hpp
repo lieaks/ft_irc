@@ -19,3 +19,4 @@ bool	cmd_invite(Server &server, Client &client, std::vector<std::string> &input)
 bool	cmd_oper(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_notice(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_privmsg(Server &server, Client &client, std::vector<std::string> &input);
+bool	cmd_wallops(Server &server, Client &client, std::vector<std::string> &input);
