@@ -33,34 +33,6 @@ Server::~Server() {
 	}
 };
 
-void	Server::addOperator(Client *client) {
-	std::vector<Client *>::iterator it = _operators.begin();
-	while (it != _operators.end())
-		if ((*it)->getNickname() == client->getNickname()) {}
-			return ;
-	_operators.push_back(client);
-	client->addMode(OPERATOR);
-}
-
-void	Server::removeOperator(Client *client) {
-	std::vector<Client *>::iterator it = _operators.begin();
-	while (it != _operators.end()) {
-		if ((*it)->getNickname() == client->getNickname()) {
-			_operators.erase(it);
-			client->removeMode(OPERATOR);
-		}
-	}
-}
-
-bool	Server::isOperator(Client *client) {
-	std::vector<Client *>::iterator it = _operators.begin();
-	while (it != _operators.end()) {
-		if ((*it)->getNickname() == client->getNickname())
-			return true;
-	}
-	return false;
-}
-
 Client	*Server::getClient(const std::string nickname) {
 	std::map<int, Client *>::iterator it = _vector_clients.begin();
 	while (it != _vector_clients.end()) {
@@ -78,6 +50,20 @@ Channel *Server::getChannel(const std::string name) {
 			return *it;
 	}
 	return NULL;
+}
+
+void	Server::removeClient(Client *client) {
+	if (!client)
+		return;
+	std::map<int, Client *>::iterator it = _vector_clients.begin();
+	while (it != _vector_clients.end()) {
+		if (it->second == client) {
+			client->leaveAllChannels();
+			delete client;
+			_vector_clients.erase(it);
+		}
+		it++;
+	}
 }
 
 void Server::_createsocket() {
@@ -206,4 +192,5 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("NOTICE", &cmd_notice));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PRIVMSG", &cmd_privmsg));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("WALLOPS", &cmd_wallops));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("QUIT", &cmd_quit));
 }

@@ -1,7 +1,4 @@
-
 #include "../../includes/commands.hpp"
-#include <map>
-#include <vector>
 
 bool	cmd_wallops(Server &server, Client &client, std::vector<std::string> &input) {
 	if (input.size() < 2) {

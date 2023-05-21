@@ -41,7 +41,6 @@ class Server
 		struct epoll_event				_epoll_tab_events[MAX_EVENTS];
 		std::map<int, Client*>			_vector_clients;
 		std::vector<Channel *>			_vector_channels;
-		std::vector<Client *>			_operators;
 		std::map<std::string, bool (*)(Server &, Client &, std::vector<std::string> & )>	_commands;
 
 	public:
@@ -56,11 +55,8 @@ class Server
 		std::vector<Channel *>		&getChannels() { return _vector_channels; };
 		Client						*getClient(const std::string nickname);
 		Channel						*getChannel(const std::string name);
-		std::vector<Client *>		getOperators() { return _operators; };
 
-		void	addOperator(Client *client);
-		void	removeOperator(Client *client);
-		bool	isOperator(Client *client);
+		void	removeClient(Client *client);
 };
 
 /* class CustomException : public std::exception { */
