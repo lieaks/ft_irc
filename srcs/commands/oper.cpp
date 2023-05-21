@@ -10,14 +10,11 @@ bool	cmd_oper(Server &server, Client &client, std::vector<std::string> &input) {
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), input[1]));
 		return false;
 	}
-	if (target->isModeSet(OPERATOR)) {
-		client.send_message(ERR_ALREADYREGISTRED(client.getNickname()));
-		return false;
-	}
 	if (server.getOperatorPassword() != input[2]) {
 		client.send_message(ERR_PASSWDMISMATCH(client.getNickname()));
 		return false;
 	}
+	client.send_message(RPL_YOUROPER(client.getNickname()));
 	target->addMode(OPERATOR);
 	return true;
 }

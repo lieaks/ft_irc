@@ -73,6 +73,7 @@
 #define RPL_TOPIC(nickname, channel, topic) (std::string(":") + SERVER_NAME + "332 " + nickname + " " + channel + "\r\n")
 #define ROL_TOPICWHOTIME(nickname, channel, concerned_client_nickname, time) (std::string(":") + SERVER_NAME + "333 " + nickname + " " + channel + " " + concerned_client_nickname + " " + time + "\r\n")
 #define RPL_INVITING(nickname, target, channel) (std::string(":") + SERVER_NAME + "341 " + nickname + " " + target + " " + channel + "\r\n")
+#define RPL_YOUROPER(nickname) (std::string(":") + SERVER_NAME + "381 " + nickname + " :You are now an IRC operator" + "\r\n")
 
 // macro command format
 #define PONG(nickname) (std::string(":") + SERVER_NAME + " PONG " + SERVER_NAME + " :" + SERVER_NAME + "\r\n")
