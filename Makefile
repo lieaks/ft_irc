@@ -20,18 +20,44 @@ INCLUDE = -I.
 
 NAME = ircserv
 
+flag:= 1
+.cpp.o :
+	@setterm -cursor off
+	@if [ $(flag) = "1" ]; then\
+		clear ;\
+		printf "\033[1;35m========================================\n";\
+		printf "|          IRC IS LOADING ...          |\n";\
+		printf "========================================\n";\
+	fi
+	@printf "\033[1;32m|\033[32m                                                                              \033[m\r"
+	@printf "\033[1;35m|\033[0;32m Compiling $@... \033[m\r"
+	@$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@ 
+	$(eval flag=$(shell echo $$(($(flag)+1))))
+
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CXX) $(CPPFLAGS) $(INCLUDE) -o $(NAME) $(OBJS)
+$(NAME): $(OBJS) 
+	@printf "\033[K\033[1;32m| Irc: compiled                        |\n\033[m"
+	@$(CXX) $(CXXFLAGS) $(INCLUDE) $(OBJS) -o $(NAME)
+	@printf "\033[1;32m========================================\n"
+	@printf "|         COMPILATION FINISHED !       |\n"
+	@printf "========================================\n\033[m"
+	@setterm -cursor on
 
 -include $(DEPS)
 
 clean:
-	rm -f $(OBJS) $(DEPS)
+	@printf "\033[1;31m========================================\n"
+	@printf "|          IRC CLEANING ...            |\n"
+	@printf "========================================\n\033[m"
+	@printf "\033[K\033[1;31m|\033[1;33m Destroying objects                   \033[1;31m|\n\033[m"
+	@rm -f $(OBJS) $(DEPS)
+	@printf "\033[1;31m========================================\n\033[m"
 
 fclean: clean
-	rm -f $(NAME)
+	@printf "\033[K\033[1;31m|\033[1;31m Destroying all                       \033[1;31m|\n\033[m"
+	@rm -f $(NAME)
+	@printf "\033[1;31m========================================\n\033[m"
 
 re: fclean all
 
