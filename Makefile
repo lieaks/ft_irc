@@ -23,7 +23,7 @@ NAME = ircserv
 flag:= 1
 .cpp.o :
 	@export TERM="xterm-256color"
-	@setterm -cursor off
+	@TERM="xterm-256color" setterm -cursor off
 	@if [ $(flag) = "1" ]; then\
 		clear ;\
 		printf "\033[1;35m╔══════════════════════════════════════╗\n";\
@@ -44,7 +44,7 @@ $(NAME): $(OBJS)
 	@printf "║         COMPILATION FINISHED !       ║\n"
 	@printf "╚══════════════════════════════════════╝\n\033[m"
 	@export TERM="xterm-256color"
-	@setterm -cursor on
+	@TERM="xterm-256color" setterm -cursor on
 
 -include $(DEPS)
 
