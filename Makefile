@@ -22,6 +22,7 @@ NAME = ircserv
 
 flag:= 1
 .cpp.o :
+	@setterm -cursor off
 	@if [ $(flag) = "1" ]; then\
 		clear ;\
 		printf "\033[1;35m╔══════════════════════════════════════╗\n";\
@@ -41,6 +42,7 @@ $(NAME): $(OBJS)
 	@printf "\033[1;32m╠══════════════════════════════════════╣\n"
 	@printf "║         COMPILATION FINISHED !       ║\n"
 	@printf "╚══════════════════════════════════════╝\n\033[m"
+	@setterm -cursor on
 
 -include $(DEPS)
 
