@@ -10,6 +10,7 @@ helper
 ircbot
 *.d
 *.pid
+vgcore.*
 stdout.txt
 
 # Debug files
