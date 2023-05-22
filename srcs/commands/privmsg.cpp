@@ -46,9 +46,9 @@ bool	cmd_privmsg(Server &server, Client &client, std::vector<std::string> &input
 	}
 	if (input.at(0)[1] == '#')
 	{
-		channel_privmsg(Server &server, Client &client, std::string msg, std::string dest)
+		channel_privmsg(server, client, msg, input[1]);
 	}
 	else
-		client_privmsg(Server &server, Client &client, std::string msg, std::string dest)
+		client_privmsg(server, client, msg, input[1]);
 	return true;
 }
