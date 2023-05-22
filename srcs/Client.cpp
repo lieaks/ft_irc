@@ -58,5 +58,5 @@ void	Client::leaveActiveChannel() {
 
 void	Client::send_message(const std::string message) {
 	send(_client_fd, message.c_str(), message.length(), MSG_NOSIGNAL);
-	std::cerr << "client fd: " << _client_fd << std::endl;
+	// std::cerr << "client fd: " << _client_fd << std::endl;
 }

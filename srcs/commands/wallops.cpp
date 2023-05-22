@@ -12,8 +12,8 @@ bool	cmd_wallops(Server &server, Client &client, std::vector<std::string> &input
 	std::map<int, Client *>::iterator it = server.getClients().begin();
 	while (it != server.getClients().end()) {
 		if (it->second->isModeSet(WALLOPS)) {
-			it->second->send_message(":" + client.getNickname() + " WALLOPS :" + input[1]);
-			std::cout << "Hello world !" << std::endl;
+			it->second->send_message(":" + client.getNickname() + " WALLOPS :" + input[1] + "\r\n");
+			std::cout << it->second->getNickname() << std::endl;
 		}
 		++it;
 	}
