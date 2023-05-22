@@ -159,8 +159,8 @@ void Server::_handle_new_msg(int i) {
 			std::cout << "cmd: " << cmd << std::endl;
             args = split(cmd, " ");
             if (args.size()) {
-                if (_commands.find(args[0]) != _commands.end())
-                    _commands[args[0]](*this, *client, args);
+				if (_commands.find(ft_toupper(args[0])) != _commands.end())
+					_commands[ft_toupper(args[0])](*this, *client, args);
                 // else
 					// client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
             }
@@ -180,13 +180,13 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PASS", &cmd_pass));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("INVITE", &cmd_invite));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PING", &cmd_ping));
-	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("info", &cmd_info));
-	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("version", &cmd_version));
-	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("time", &cmd_time));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("INFO", &cmd_info));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("VERSION", &cmd_version));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("TIME", &cmd_time));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("OPER", &cmd_oper));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("NOTICE", &cmd_notice));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PRIVMSG", &cmd_privmsg));
-	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("wallops", &cmd_wallops));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("WALLOPS", &cmd_wallops));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("QUIT", &cmd_quit));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("CAP", &cmd_cap));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("JOIN", &cmd_join));

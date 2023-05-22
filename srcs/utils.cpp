@@ -32,3 +32,12 @@ void displayCommands(Client *client, std::string arg) {
 	std::cout << "from [" << client->getInput() << " ] ";
 	std::cout << arg << std::endl;
 }
+
+std::string	ft_toupper(std::string str) {
+	std::string ret;
+
+	for (size_t i = 0; i < str.length(); i++) {
+		ret += toupper(str[i]);
+	}
+	return ret;
+}
