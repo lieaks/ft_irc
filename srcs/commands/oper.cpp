@@ -14,7 +14,7 @@ bool	cmd_oper(Server &server, Client &client, std::vector<std::string> &input) {
 		client.send_message(ERR_PASSWDMISMATCH(client.getNickname()));
 		return false;
 	}
-	client.send_message(RPL_YOUROPER(client.getNickname()));
+	target->send_message(RPL_YOUROPER(target->getNickname()));
 	target->addMode(OPERATOR);
 	return true;
 }

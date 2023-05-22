@@ -161,13 +161,12 @@ void Server::_handle_new_msg(int i) {
             if (args.size()) {
                 if (_commands.find(args[0]) != _commands.end())
                     _commands[args[0]](*this, *client, args);
-                else
-					client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
+                // else
+					// client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
             }
-            else {
-				std::cout << "Test2" << std::endl;
+            else
 				client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
-			}
+		
 			if (args[0] == "QUIT")
 				return;
             pos = client->getInput().find_first_of("\r\n");
@@ -187,7 +186,7 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("OPER", &cmd_oper));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("NOTICE", &cmd_notice));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PRIVMSG", &cmd_privmsg));
-	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("WALLOPS", &cmd_wallops));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("wallops", &cmd_wallops));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("QUIT", &cmd_quit));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("CAP", &cmd_cap));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("JOIN", &cmd_join));

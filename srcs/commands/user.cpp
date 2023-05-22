@@ -37,7 +37,8 @@ bool	cmd_user(Server &server, Client &client, std::vector<std::string> &input) {
 	if (realname[0] == ':')
 		realname = realname.substr(1);
 	client.setRealname(realname);
-	std::cout << "RealName: " << client.getRealname() << std::endl;
+	// std::cout << "RealName: " << client.getRealname() << std::endl;
+	client.addMode(WALLOPS);
 	client.setRegistered(true);
 	client.send_message(RPL_WELCOME(client.getNickname()));
 	return true;
