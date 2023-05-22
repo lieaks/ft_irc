@@ -79,4 +79,4 @@
 // macro command format
 #define PONG(nickname) (std::string(":") + SERVER_NAME + " PONG " + SERVER_NAME + " :" + SERVER_NAME + "\r\n")
 #define NICK(nickname, username, new_nickname) (CLIENT_ID(nickname, username, "NICK") + ":" + new_nickname + "\r\n")
-#define NOTICE(nickname, username, target, message) (CLIENT_ID(nickname, username, "NICK") + target + " : " + message + "\r\n")
+#define NOTICE(nickname, username, cmd, message) (CLIENT_ID(nickname, username, cmd) + ":" + message + "\r\n")
