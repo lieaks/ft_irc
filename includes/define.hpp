@@ -80,3 +80,4 @@
 #define PONG(nickname) (std::string(":") + SERVER_NAME + " PONG " + SERVER_NAME + " :" + SERVER_NAME + "\r\n")
 #define NICK(nickname, username, new_nickname) (CLIENT_ID(nickname, username, "NICK") + ":" + new_nickname + "\r\n")
 #define NOTICE(nickname, username, cmd, message) (CLIENT_ID(nickname, username, cmd) + ":" + message + "\r\n")
+#define PRIVMSG(nickname, dest_nickname, msg) (std::string(":") + nickname + " PRIVMSG " + dest_nickname + " :" + msg + "\r\n")
