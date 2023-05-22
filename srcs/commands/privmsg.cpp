@@ -20,7 +20,7 @@ bool	channel_privmsg(Server &server, Client &client, std::string msg, std::strin
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), dest));
 		return false;
 	}
-	channel->send_message(PRIVMSG(client.getNickname(), "#" + dest, msg);
+	channel->send_message(PRIVMSG(client.getNickname(), dest, msg);
 	return true;
 }
 
