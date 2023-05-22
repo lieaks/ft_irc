@@ -12,6 +12,7 @@
 #include <netinet/in.h> // struct sockaddr_in
 #include <sys/epoll.h> // struct epool_event
 #include <arpa/inet.h> // inet_ntoa
+#include <unistd.h> // close()
 
 // custom lib
 #include "Channel.hpp"

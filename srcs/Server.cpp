@@ -1,10 +1,4 @@
 #include "../includes/Server.hpp"
-#include <asm-generic/socket.h>
-#include <netinet/in.h>
-#include <sys/epoll.h>
-#include <sys/socket.h>
-#include <utility>
-#include <vector>
 
 Server::Server(int port, std::string password, std::string operators_password):
 		_port(port), _password(password), _operators_password(operators_password) {
@@ -60,6 +54,7 @@ void	Server::removeClient(Client *client) {
 		if (it->second == client) {
 			client->leaveAllChannels();
 			delete client;
+			close(it->first);
 			_vector_clients.erase(it);
 			return ;
 		}
@@ -173,6 +168,8 @@ void Server::_handle_new_msg(int i) {
 				std::cout << "Test2" << std::endl;
 				client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
 			}
+			if (args[0] == "QUIT")
+				return;
             pos = client->getInput().find_first_of("\r\n");
         }
     }
