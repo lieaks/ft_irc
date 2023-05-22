@@ -2,7 +2,7 @@
 SRCS_MAIN = main Server Client Channel utils
 SRCS = $(addprefix srcs/, $(addsuffix .cpp, $(SRCS_MAIN)))
 
-COMMANDS = nick user pass invite ping info version time privmsg notice oper wallops quit cap
+COMMANDS = nick user pass invite ping info version time privmsg notice oper wallops quit cap join
 COMMANDS_SRC = $(addprefix srcs/commands/, $(addsuffix .cpp, $(COMMANDS)))
 
 SRCS += $(COMMANDS_SRC)
@@ -14,7 +14,7 @@ DEPS = $(SRCS:.cpp=.d)
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 
 CXXFLAGS += -MMD
-# CFLAGS += -g3
+CFLAGS += -g3
 # CFLAGS += -fsanitize=address
 INCLUDE = -I. 
 

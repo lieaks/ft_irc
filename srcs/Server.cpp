@@ -61,6 +61,7 @@ void	Server::removeClient(Client *client) {
 			client->leaveAllChannels();
 			delete client;
 			_vector_clients.erase(it);
+			return ;
 		}
 		it++;
 	}
