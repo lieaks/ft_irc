@@ -2,7 +2,7 @@
 
 bool	client_privmsg(Server &server, Client &client, std::string msg, std::string dest)
 {
-	Client* dest_client = server.getClient(dest);
+	Client* dest_client = server.getClient(dest.substr(1, dest.length() - 1));
 	if (dest_client == NULL)
 	{
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), dest));
