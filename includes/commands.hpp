@@ -22,4 +22,4 @@ bool	cmd_privmsg(Server &server, Client &client, std::vector<std::string> &input
 bool	cmd_wallops(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_quit(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_cap(Server &server, Client &client, std::vector<std::string> &input);
-
+bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input);
