@@ -165,10 +165,8 @@ void Server::_handle_new_msg(int i) {
             if (args.size()) {
                 if (_commands.find(args[0]) != _commands.end())
                     _commands[args[0]](*this, *client, args);
-                // else {
-					// std::cout << "Test1" << std::endl;
-					// client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
-				// }
+                else
+					client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
             }
             else {
 				std::cout << "Test2" << std::endl;
@@ -193,4 +191,5 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PRIVMSG", &cmd_privmsg));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("WALLOPS", &cmd_wallops));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("QUIT", &cmd_quit));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("CAP", &cmd_cap));
 }
