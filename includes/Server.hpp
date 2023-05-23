@@ -58,18 +58,5 @@ class Server
 		Channel						*getChannel(const std::string name);
 
 		void	removeClient(Client *client);
+		void	addChannel(Channel *channel);
 };
-
-/* class CustomException : public std::exception { */
-/* 	private: */
-/* 		const char* m_message; */
-/* 	public: */
-/* 		CustomException(const char * message): m_message(message) {}; */
-/* 		CustomException(std::string message, int code) { */
-/* 			// doesn't work because the message is freed before the throw */
-/* 			if (errno != 0) */
-/* 				message = message + ": " + strerror(code); */
-/* 			m_message = message.c_str(); */
-/* 		} */
-/* 		virtual const char* what() const throw() { return m_message; }; */
-/* }; */

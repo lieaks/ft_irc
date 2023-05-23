@@ -12,5 +12,12 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input) {
 		client.send_message(ERR_NOTREGISTERED(client.getNickname()));
 		return false;
 	}
+	Channel *channel = server.getChannel(input[1]);
+	if (channel == NULL)
+	{
+		channel = new Channel(input[1]);
+		server.addChannel(channel);
+	}
+	client.joinChannel(channel);
 	return true;
 }
