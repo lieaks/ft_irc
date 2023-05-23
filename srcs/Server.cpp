@@ -27,7 +27,7 @@ Server::~Server() {
 	}
 };
 
-Client	*Server::getClient(const std::string nickname) {
+Client	*Server::getClientByNick(const std::string nickname) {
 	std::map<int, Client *>::iterator it = _vector_clients.begin();
 	while (it != _vector_clients.end()) {
 		if ((it->second)->getNickname() == nickname)
@@ -37,7 +37,17 @@ Client	*Server::getClient(const std::string nickname) {
 	return NULL;
 }
 
-Channel *Server::getChannel(const std::string name) {
+Client	*Server::getClientByUser(const std::string username) {
+	std::map<int, Client *>::iterator it = _vector_clients.begin();
+	while (it != _vector_clients.end()) {
+		if ((it->second)->getUsername() == username)
+			return it->second;
+		it++;
+	}
+	return NULL;
+}
+
+Channel *Server::getChannelByName(const std::string name) {
 	std::vector<Channel *>::iterator it = _vector_channels.begin();
 	while (it != _vector_channels.end()) {
 		if ((*it)->getName() == name)

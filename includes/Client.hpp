@@ -22,6 +22,7 @@ class Client
 		std::string				_hostname;
 		std::string				_input;
 		std::string				_nickname;
+		std::string				_username;
 		std::string				_realname;
 		Channel					*_active_channel;
 		std::vector<Channel *>	_channels;
@@ -36,6 +37,7 @@ class Client
 		const std::string		getInput() const { return _input; };
 		const std::string		getHostname() const { return _hostname; };
 		const std::string		getNickname() const { return _nickname; };
+		const std::string		getUsername() const { return _nickname; };
 		const std::string		getRealname() const { return _realname; };
 		int						getFd() const { return _client_fd; };
 		std::vector<Channel *>&	getChannels() { return _channels; };
@@ -46,6 +48,7 @@ class Client
 		void				setActiveChannel(Channel *channel) { _active_channel = channel; };
 		void				setInput(std::string input) { _input = input; };
 		void				setNickname(std::string const &nickname ) { _nickname = nickname; };
+		void				setUsername(std::string const &nickname ) { _nickname = nickname; };
 		void				setRealname( std::string const &realname ) { _realname = realname; };
 		void				setRegistered(bool isRegistered) { _isRegistered = isRegistered; };
 		int					&getModes() { return _modes; };

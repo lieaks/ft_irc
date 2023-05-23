@@ -4,7 +4,6 @@
 Client::Client(int client_fd, std::string hostname) :
 	_client_fd(client_fd),
 	_hostname(hostname),
-	_nickname(""),
 	_active_channel(NULL),
 	_modes(0),
 	_isRegistered(false)

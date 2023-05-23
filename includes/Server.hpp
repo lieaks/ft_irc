@@ -54,8 +54,9 @@ class Server
 		const std::string			getPassword() const { return _password; };
 		const std::string			getOperatorPassword() const { return _operators_password; };
 		std::vector<Channel *>		&getChannels() { return _vector_channels; };
-		Client						*getClient(const std::string nickname);
-		Channel						*getChannel(const std::string name);
+		Client						*getClientByNick(const std::string nickname);
+		Client						*getClientByUser(const std::string username);
+		Channel						*getChannelByName(const std::string name);
 
 		void	removeClient(Client *client);
 		void	addChannel(Channel *channel);
