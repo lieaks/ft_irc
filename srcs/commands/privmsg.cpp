@@ -1,6 +1,6 @@
 #include "../../includes/commands.hpp"
 
-bool	client_notice(Server &server, Client &client, std::string msg, std::string dest)
+static bool	client_notice(Server &server, Client &client, std::string msg, std::string dest)
 {
 	Client* dest_client = server.getClientByNick(dest);
 	if (dest_client == NULL)
@@ -12,7 +12,7 @@ bool	client_notice(Server &server, Client &client, std::string msg, std::string 
 	return true;
 }
 
-bool	channel_notice(Server &server, Client &client, std::string msg, std::string dest)
+static bool	channel_notice(Server &server, Client &client, std::string msg, std::string dest)
 {
 	Channel* channel = server.getChannelByName(dest.substr(1, dest.length() - 1));
 	if (channel == NULL)
@@ -24,7 +24,7 @@ bool	channel_notice(Server &server, Client &client, std::string msg, std::string
 	return true;
 }
 
-bool	cmd_notice(Server &server, Client &client, std::vector<std::string> &input)
+bool	cmd_privmsg(Server &server, Client &client, std::vector<std::string> &input)
 {
 	(void)server;
 	if (input.size() < 3  || (input.size() == 2 && input.at(0)[1] != ':'))
