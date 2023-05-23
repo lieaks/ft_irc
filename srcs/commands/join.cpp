@@ -20,6 +20,24 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input) {
 		channel = new Channel(input[1], "", &client);
 		server.addChannel(channel);
 	}
+	else
+	{
+		if (not channel->getKey().empty() && input.size() == 3 && input[2] != channel->getKey())
+		{
+			client.send_message(ERR_BADCHANNELKEY(client.getNickname(), channel->getName()));
+			return false;
+		}
+		if (channel->getMode() == 1 << 3 && not channel->isInvited(&client))
+		{
+			client.send_message(ERR_INVITEONLYCHAN(client.getNickname(), channel->getName()));
+			return false;
+		}
+		if (channel->getMode() == 1 << 7 && channel->getClients().size() == channel->getLimit())
+		{
+			client.send_message(ERR_CHANNELISFULL(client.getNickname(), channel->getName()));
+			return false;
+		}
+	}
 	client.joinChannel(channel);
 	channel->send_message(JOIN(client.getNickname(), client.getUsername(), channel->getName()));
 	if (channel->getTopic() != "")
