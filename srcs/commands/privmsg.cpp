@@ -2,7 +2,7 @@
 
 bool	client_privmsg(Server &server, Client &client, std::string msg, std::string dest)
 {
-	Client* dest_client = server.getClient(dest);
+	Client* dest_client = server.getClientByNick(dest);
 	if (dest_client == NULL)
 	{
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), dest));
@@ -14,7 +14,7 @@ bool	client_privmsg(Server &server, Client &client, std::string msg, std::string
 
 bool	channel_privmsg(Server &server, Client &client, std::string msg, std::string dest)
 {
-	Channel* channel = server.getChannel(dest.substr(1, dest.length() - 1));
+	Channel* channel = server.getChannelByName(dest.substr(1, dest.length() - 1));
 	if (channel == NULL)
 	{
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), dest));
