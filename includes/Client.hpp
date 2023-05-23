@@ -11,7 +11,7 @@ class Channel;
 enum ClientModes {
 	INVISIBLE = 1 << 1,
 	WALLOPS = 1 << 2,
-	AWAY = 1 << 3,
+	/* AWAY = 1 << 3, */
 	OPERATOR = 1 << 4,
 };
 
