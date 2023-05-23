@@ -26,6 +26,15 @@ Server::~Server() {
 	}
 };
 
+std::string	Server::getNamesClients() {
+	std::string res;
+	for (std::map<int, Client*>::iterator it = _vector_clients.begin(); it != _vector_clients.end(); it++) {
+		res += (*it->second).getNickname();
+		res += " ";
+	}
+	return res;
+}
+
 Client	*Server::getClientByNick(const std::string nickname) {
 	std::map<int, Client *>::iterator it = _vector_clients.begin();
 	while (it != _vector_clients.end()) {
