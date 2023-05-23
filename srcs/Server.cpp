@@ -158,9 +158,11 @@ void Server::_handle_new_msg(int i) {
     std::string input_buf;
     int		ret;
     Client* client;
+	int		client_socket;
 
     std::map<int, Client*>::iterator it = _vector_clients.find(_epoll_tab_events[i].data.fd);
     client = it->second;
+	client_socket = client->getFd();
     memset(buffer, 0, BUFFER_SIZE);
     if ((ret = recv(_epoll_tab_events[i].data.fd, buffer, BUFFER_SIZE, 0)) < 0)
         throw std::runtime_error("Error: read msg");
@@ -189,8 +191,8 @@ void Server::_handle_new_msg(int i) {
             }
             else
 				client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
-		
-			if (args[0] == "QUIT")
+
+			if (_vector_clients.find(client_socket) == _vector_clients.end()) 
 				return;
             pos = client->getInput().find_first_of("\r\n");
         }
