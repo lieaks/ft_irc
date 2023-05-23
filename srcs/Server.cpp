@@ -15,8 +15,7 @@ Server::Server(int port, std::string password, std::string operators_password):
 Server::~Server() {
 	std::map<int, Client*>::iterator clit = _vector_clients.begin();
 	while (clit != _vector_clients.end()) {
-		// TODO: disconnect user, like a /kill
-		/* clit->second->send_message() */
+		close(clit->first);
 		delete clit->second;
 		clit++;
 	}
@@ -183,7 +182,7 @@ void Server::_handle_new_msg(int i) {
             if (args.size()) {
 				if (_commands.find(ft_toupper(args[0])) != _commands.end())
 					_commands[ft_toupper(args[0])](*this, *client, args);
-                // else
+                // else // TODO: uncomment this ?
 					// client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
             }
             else

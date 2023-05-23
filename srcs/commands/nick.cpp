@@ -49,6 +49,6 @@ bool	cmd_nick(Server &server, Client &client, std::vector<std::string> &input) {
 	// }
 	client.send_message(NICK(client.getNickname(), client.getHostname(), input[1]));
 	client.setNickname(input[1]);
-	// std::cout << "New nickname: " << client.getNickname() << std::endl;
+	/* std::cout << "New nickname: " << client.getNickname() << std::endl; */
 	return true;
 }

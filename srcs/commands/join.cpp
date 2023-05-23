@@ -12,6 +12,8 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input) {
 		client.send_message(ERR_NOTREGISTERED(client.getNickname(), input[0]));
 		return false;
 	}
+	if (input[1][0] == '#')
+		input[1] = input[1].substr(1);
 	Channel *channel = server.getChannelByName(input[1]);
 	if (channel == NULL)
 	{
