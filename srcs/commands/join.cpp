@@ -21,7 +21,7 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input) {
 		server.addChannel(channel);
 	}
 	client.joinChannel(channel);
-	client.send_message(JOIN(client.getNickname(), client.getUsername(), channel->getName()));
+	channel->send_message(JOIN(client.getNickname(), client.getUsername(), channel->getName()));
 	if (channel->getTopic() != "")
 		client.send_message(RPL_TOPIC(client.getNickname(), channel->getName(), channel->getTopic()));
 	else
