@@ -1,9 +1,9 @@
 #include "../includes/Channel.hpp"
 #include <vector>
 
-Channel::Channel(std::string name, std::string topic, Client *creator):
+Channel::Channel(std::string name, Server &server, Client *creator):
+	_server(server),
 	_name(name),
-	_topic(topic),
 	_limit(10),
 	_creator(creator),
 	_modes(0),
@@ -84,4 +84,11 @@ void	Channel::send_message(const std::string message, Client *client) {
 			(*it)->send_message(message);
 		it++;
 	}
+}
+
+void	Channel::removeClient(Client *client) {
+	removeFromVector(_clients, client);
+	removeFromVector(_operators, client);
+	if (_clients.size() == 0 && _operators.size() == 0)
+		_server.removeChannel(this);
 }

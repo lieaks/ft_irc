@@ -84,6 +84,20 @@ void	Server::addChannel(Channel	*channel) {
 	_vector_channels.push_back(channel);
 }
 
+void	Server::removeChannel(Channel *channel) {
+	if (!channel)
+		return;
+	std::vector<Channel *>::iterator it = _vector_channels.begin();
+	while (it != _vector_channels.end()) {
+		if (*it == channel) {
+			delete *it;
+			_vector_channels.erase(it);
+			return ;
+		}
+		it++;
+	}
+}
+
 void Server::_createsocket() {
 	// AF_INET = addr ip v4 || SOCK_STREAM = protocol TCP 
 	if ((_socket_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)

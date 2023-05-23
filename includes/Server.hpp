@@ -21,6 +21,9 @@
 #include "utils.hpp"
 #include "commands.hpp"
 
+class Client;
+class Channel;
+
 class Server
 {
 	private:
@@ -63,4 +66,5 @@ class Server
 
 		void	removeClient(Client *client);
 		void	addChannel(Channel *channel);
+		void	removeChannel(Channel *channel);
 };
