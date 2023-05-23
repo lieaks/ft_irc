@@ -8,7 +8,7 @@ bool	client_privmsg(Server &server, Client &client, std::string msg, std::string
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), dest));
 		return false;
 	}
-	client.send_message(PRIVMSG(client.getNickname(), client.getHostname() ,dest, msg));
+	dest_client->send_message(PRIVMSG(client.getNickname(), client.getHostname() ,dest, msg));
 	return true;
 }
 
