@@ -28,6 +28,7 @@ class Client
 		std::vector<Channel *>	_channels;
 		int						_modes;
 		bool					_isRegistered;
+		bool					_isAuth;
 
 	public:
 		Client(int client_fd, std::string hostname);
@@ -44,6 +45,7 @@ class Client
 		Channel					*getActiveChannel() const { return _active_channel; };
 		Channel					*getChannel(std::string const channel_name);
 		bool					isRegistered() const { return _isRegistered; }
+		bool					isAuth() const { return _isAuth; }
 
 		void				setActiveChannel(Channel *channel) { _active_channel = channel; };
 		void				setInput(std::string input) { _input = input; };
@@ -51,6 +53,7 @@ class Client
 		void				setUsername(std::string const &username ) { _username = username; };
 		void				setRealname( std::string const &realname ) { _realname = realname; };
 		void				setRegistered(bool isRegistered) { _isRegistered = isRegistered; };
+		void				setAuth(bool isAuth) { _isAuth = isAuth; };
 		int					&getModes() { return _modes; };
 
 		void				clearInput() { _input.clear(); };

@@ -30,8 +30,6 @@ bool	cmd_user(Server &server, Client &client, std::vector<std::string> &input) {
 		return false;
 	}
 	client.setUsername(input[1]);
-	if (client.getNickname().empty())
-		client.setNickname(input[1]);
 
 	realname = input[4];
 	for (size_t i = 5; i < input.size(); i++)
@@ -40,7 +38,9 @@ bool	cmd_user(Server &server, Client &client, std::vector<std::string> &input) {
 		realname = realname.substr(1);
 	client.setRealname(realname);
 	client.addMode(WALLOPS);
-	client.setRegistered(true);
-	client.send_message(RPL_WELCOME(client.getNickname()));
+	if (!client.getNickname().empty() && !client.getUsername().empty() && !client.getRealname().empty())
+		client.setRegistered(true);
+	if (client.isRegistered() && client.isAuth())
+		client.send_message(RPL_WELCOME(client.getNickname()));
 	return true;
 }

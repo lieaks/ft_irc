@@ -79,6 +79,6 @@
 // macro command format
 #define PONG(nickname) (std::string(":") + SERVER_NAME + " PONG " + SERVER_NAME + " :" + SERVER_NAME + "\r\n")
 #define NICK(nickname, username, new_nickname) (CLIENT_ID(nickname, username, "NICK") + ":" + new_nickname + "\r\n")
-#define NOTICE(nickname, username, cmd, message) (CLIENT_ID(nickname, username, cmd) + ":" + message + "\r\n")
-#define PRIVMSG(nickname, username, dest_nickname, msg) (CLIENT_ID(nickname, username, "PRIVMSG") + dest_nickname + " :" + msg + "\r\n")
+#define NOTICE(nickname, username, dest, msg) (CLIENT_ID(nickname, username, "NOTICE") + dest + " :" + msg + "\r\n")
+#define PRIVMSG(nickname, username, dest, msg) (CLIENT_ID(nickname, username, "PRIVMSG") + dest + " :" + msg + "\r\n")
 #define JOIN(nickname, username, channel) (CLIENT_ID(nickname, username, "JOIN") + ":" + channel + "\r\n")

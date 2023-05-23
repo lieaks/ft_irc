@@ -6,7 +6,8 @@ Client::Client(int client_fd, std::string hostname) :
 	_hostname(hostname),
 	_active_channel(NULL),
 	_modes(0),
-	_isRegistered(false)
+	_isRegistered(false),
+	_isAuth(false)
 {
 		std::cout << "new client with fd: " << _client_fd << std::endl;
 };
