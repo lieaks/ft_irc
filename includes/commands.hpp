@@ -5,6 +5,7 @@
 #include "Server.hpp"
 
 class Server;
+class Client;
 
 #define NICK_VALID_CHARS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_[]{}'|"
 

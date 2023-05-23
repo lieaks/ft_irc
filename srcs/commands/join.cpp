@@ -17,7 +17,7 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input) {
 	Channel *channel = server.getChannelByName(input[1]);
 	if (channel == NULL)
 	{
-		channel = new Channel(input[1], "", &client);
+		channel = new Channel(input[1], server, &client);
 		server.addChannel(channel);
 	}
 	else

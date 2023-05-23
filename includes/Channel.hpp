@@ -1,11 +1,13 @@
 #pragma once
 
 #include "Client.hpp"
+#include "Server.hpp"
 #include <string>
 #include <vector>
 #include <algorithm>
 
 class Client;
+class Server;
 
 enum ChannelModes {
 	NONE = 0,
@@ -18,6 +20,7 @@ enum ChannelModes {
 class Channel
 {
 	private:
+		Server					&_server;
 		std::string				_name;
 		std::string				_topic;
 		std::string				_key;
@@ -34,7 +37,7 @@ class Channel
 		bool	isInVector(std::vector<Client *> &vec, Client *client);
 
 	public:
-		Channel(std::string name, std::string topic = "", Client *creator = NULL);
+		Channel(std::string name, Server &server, Client *creator = NULL);
 		~Channel();
 
 		const std::string	getName() const { return _name; };
@@ -59,7 +62,8 @@ class Channel
 
 		// clients related
 		void	addClient(Client *client) { addToVector(_clients, client); };
-		void	removeClient(Client *client) { removeFromVector(_clients, client); };
+		/* void	removeClient(Client *client) { removeFromVector(_clients, client); removeOperator(client); }; */
+		void	removeClient(Client *client);
 		bool 	isClient(Client *client) { return isInVector(_clients, client); };
 		void	addInvitation(Client *client) { addToVector(_invited, client); };
 		void	removeInvitation(Client *client) { removeFromVector(_invited, client); };
