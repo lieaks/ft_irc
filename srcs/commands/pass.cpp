@@ -9,8 +9,7 @@ bool	cmd_pass(Server &server, Client &client, std::vector<std::string> &input) {
 		client.send_message(ERR_ALREADYREGISTRED(client.getNickname()));
 		return false;
 	}
-	else if (not client.isRegistered() && server.getPassword() == input[0])
-		client.setRegistered(true);
-	// std::cout << "cmd_pass" << std::endl;
+	else if (not client.isRegistered() && server.getPassword() == input[1])
+		client.setAuth(true);
 	return true;
 }
