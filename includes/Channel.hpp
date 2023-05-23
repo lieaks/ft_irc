@@ -9,16 +9,9 @@ class Client;
 
 enum ChannelModes {
 	NONE = 0,
-	/* OPERATOR_PRIV = 1 << 0, */ // useless, we use the operator list
-	PRIVATE = 1 << 1,
-	SECRET = 1 << 2,
 	INVITE_ONLY = 1 << 3,
 	TOPIC_PROTECTED = 1 << 4,
-	NO_MESSAGES = 1 << 5,
-	MODERATED = 1 << 6,
 	LIMITED = 1 << 7,
-	BAN_MASK = 1 << 8,
-	VOICE = 1 << 9,
 	KEY = 1 << 10,
 };
 
@@ -30,9 +23,8 @@ class Channel
 		std::string				_key;
 		size_t					_limit;
 		std::vector<Client *>	_clients;
-		std::vector<Client *>	_banned;
 		std::vector<Client *>	_invited;
-		std::vector<Client *>	_voice;
+		std::vector<Client *>	_operators;
 		Client					*_creator;
 		int						_modes;
 		time_t					_created_at;
@@ -71,12 +63,9 @@ class Channel
 		void	addInvitation(Client *client) { addToVector(_invited, client); };
 		void	removeInvitation(Client *client) { removeFromVector(_invited, client); };
 		bool	isInvited(Client *client) { return isInVector(_invited, client); };
-		void	addBan(Client *client) { addToVector(_banned, client); };
-		void	removeBan(Client *client) { removeFromVector(_banned, client); };
-		bool	isBanned(Client *client) { return isInVector(_banned, client); };
-		void	addVoice(Client *client) { addToVector(_voice, client); };
-		void	removeVoice(Client *client) { removeFromVector(_voice, client); };
-		bool	isVoice(Client *client) { return isInVector(_voice, client); };
+		void	addOper(Client *client) { addToVector(_operators, client); };
+		void	removeOper(Client *client) { removeFromVector(_operators, client); };
+		bool	isOper(Client *client) { return isInVector(_operators, client); };
 
 		// modes related
 		void	addMode(ChannelModes mode) { _modes |= mode; };
