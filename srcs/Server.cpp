@@ -166,6 +166,7 @@ void Server::_handle_new_msg(int i) {
         throw std::runtime_error("Error: read msg");
     else if (ret == 0) {
         // disconnect
+		removeClient(client);
     } else {
 		std::string	cmd;
 		std::vector<std::string> args;
