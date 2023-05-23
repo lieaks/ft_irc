@@ -1,7 +1,7 @@
 #include "../../includes/commands.hpp"
 
 bool	cmd_kick(Server &server, Client &client, std::vector<std::string> &input) {
-	if (input.size() < 4) {
+	if (input.size() < 3) {
 		client.send_message(ERR_NEEDMOREPARAMS(client.getNickname(), "KICK"));
 		return false;
 	}
@@ -23,6 +23,8 @@ bool	cmd_kick(Server &server, Client &client, std::vector<std::string> &input) {
 		client.send_message(ERR_CHANOPRIVSNEEDED(client.getNickname(), channel->getName()));
 		return false;
 	}
+	if (input.size() == 3) {}
+		input.push_back("");
 	channel->send_message(KICK(client.getNickname(), client.getUsername(), channel->getName(), target->getNickname(), input[3]));
 	target->leaveChannel(channel);
 	return true;
