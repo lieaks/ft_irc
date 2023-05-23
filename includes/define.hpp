@@ -81,4 +81,4 @@
 #define NICK(nickname, username, new_nickname) (CLIENT_ID(nickname, username, "NICK") + ":" + new_nickname + "\r\n")
 #define NOTICE(nickname, username, dest, msg) (CLIENT_ID(nickname, username, "NOTICE") + dest + " :" + msg + "\r\n")
 #define PRIVMSG(nickname, username, dest, msg) (CLIENT_ID(nickname, username, "PRIVMSG") + dest + " :" + msg + "\r\n")
-#define JOIN(nickname, username, channel) (CLIENT_ID(nickname, username, "JOIN") + ":" + channel + "\r\n")
+#define JOIN(nickname, username, channel) (CLIENT_ID(nickname, username, "JOIN") + ":#" + channel + "\r\n")
