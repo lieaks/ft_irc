@@ -1,16 +1,16 @@
 #include "../includes/Server.hpp"
 
 Server::Server(int port, std::string password, std::string operators_password):
-		_port(port), _running(true), _password(password), _operators_password(operators_password) {
-	if (_operators_password.empty())
-		_operators_password = DEFAULT_OPER_PASS;
-	_createsocket();
-	_bindsocket();
-	if (listen(_socket_fd, BACKLOG) < 0)
-		throw std::runtime_error("Error: Cannot listen");
-	_createpoll();
-	_init_commands();
-};
+	_port(port), _running(true), _password(password), _operators_password(operators_password) {
+		if (_operators_password.empty())
+			_operators_password = DEFAULT_OPER_PASS;
+		_createsocket();
+		_bindsocket();
+		if (listen(_socket_fd, BACKLOG) < 0)
+			throw std::runtime_error("Error: Cannot listen");
+		_createpoll();
+		_init_commands();
+	};
 
 Server::~Server() {
 	std::map<int, Client*>::iterator clit = _vector_clients.begin();
@@ -154,49 +154,49 @@ void Server::_handle_connection() {
 };
 
 void Server::_handle_new_msg(int i) {
-    char	buffer[BUFFER_SIZE];
-    std::string input_buf;
-    int		ret;
-    Client* client;
+	char	buffer[BUFFER_SIZE];
+	std::string input_buf;
+	int		ret;
+	Client* client;
 	int		client_socket;
 
-    std::map<int, Client*>::iterator it = _vector_clients.find(_epoll_tab_events[i].data.fd);
-    client = it->second;
+	std::map<int, Client*>::iterator it = _vector_clients.find(_epoll_tab_events[i].data.fd);
+	client = it->second;
 	client_socket = client->getFd();
-    memset(buffer, 0, BUFFER_SIZE);
-    if ((ret = recv(_epoll_tab_events[i].data.fd, buffer, BUFFER_SIZE, 0)) < 0)
-        throw std::runtime_error("Error: read msg");
-    else if (ret == 0) {
-        // disconnect
+	memset(buffer, 0, BUFFER_SIZE);
+	if ((ret = recv(_epoll_tab_events[i].data.fd, buffer, BUFFER_SIZE, 0)) < 0)
+		throw std::runtime_error("Error: read msg");
+	else if (ret == 0) {
+		// disconnect
 		removeClient(client);
-    } else {
+	} else {
 		std::string	cmd;
 		std::vector<std::string> args;
 
-        input_buf = client->getInput() + buffer;
-        client->setInput(input_buf);
-        size_t pos = client->getInput().find_first_of("\r\n");
-        while (pos != std::string::npos) {
+		input_buf = client->getInput() + buffer;
+		client->setInput(input_buf);
+		size_t pos = client->getInput().find_first_of("\r\n");
+		while (pos != std::string::npos) {
 			cmd = client->getInput().substr(0, pos);
 			if (client->getInput().size() > pos + 1 && client->getInput()[pos + 1] == '\n')
 				pos++;
 			client->setInput(client->getInput().substr(pos + 1));
 			std::cout << "cmd: " << cmd << std::endl;
-            args = split(cmd, " ");
-            if (args.size()) {
+			args = split(cmd, " ");
+			if (args.size()) {
 				if (_commands.find(ft_toupper(args[0])) != _commands.end())
 					_commands[ft_toupper(args[0])](*this, *client, args);
-                // else // TODO: uncomment this ?
-					// client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
-            }
-            else
+				else // TODO: uncomment this ?
+					client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
+			}
+			else
 				client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
 
 			if (_vector_clients.find(client_socket) == _vector_clients.end()) 
 				return;
-            pos = client->getInput().find_first_of("\r\n");
-        }
-    }
+			pos = client->getInput().find_first_of("\r\n");
+		}
+	}
 };
 
 void	Server::_init_commands( void ) {
@@ -217,4 +217,5 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("JOIN", &cmd_join));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("SQUIT", &cmd_squit));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("MODE", &cmd_mode));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("TOPIC", &cmd_topic));
 }

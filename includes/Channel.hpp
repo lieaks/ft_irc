@@ -34,7 +34,7 @@ class Channel
 		bool	isInVector(std::vector<Client *> &vec, Client *client);
 
 	public:
-		Channel(std::string name, std::string topic = "topic", Client *creator = NULL);
+		Channel(std::string name, std::string topic = "", Client *creator = NULL);
 		~Channel();
 
 		const std::string	getName() const { return _name; };
@@ -67,6 +67,7 @@ class Channel
 		void	addOperator(Client *client) { addToVector(_operators, client); };
 		void	removeOperator(Client *client) { removeFromVector(_operators, client); };
 		bool	isOperator(Client *client) { return isInVector(_operators, client); };
+		bool	isCreator(Client *client) { return _creator == client; };
 
 		// modes related
 		void	addMode(ChannelModes mode) { _modes |= mode; };
