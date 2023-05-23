@@ -1,7 +1,7 @@
 #include "../includes/Server.hpp"
 
 Server::Server(int port, std::string password, std::string operators_password):
-		_port(port), _password(password), _operators_password(operators_password) {
+		_port(port), _running(true), _password(password), _operators_password(operators_password) {
 	if (_operators_password.empty())
 		_operators_password = DEFAULT_OPER_PASS;
 	_createsocket();
@@ -115,7 +115,7 @@ void Server::_createpoll(){
 
 void Server::run_server() {
 	int	new_event_fd;
-	while (1) {
+	while (_running) {
 		new_event_fd = epoll_wait(_epoll_fd, _epoll_tab_events, MAX_EVENTS, -1);
 		for (int i = 0; i < new_event_fd; i++){
 			if (_epoll_tab_events[i].data.fd == _socket_fd)
@@ -212,4 +212,5 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("QUIT", &cmd_quit));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("CAP", &cmd_cap));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("JOIN", &cmd_join));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("SQUIT", &cmd_squit));
 }
