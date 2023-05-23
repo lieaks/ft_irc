@@ -48,7 +48,7 @@
 #define RPL_LIST(nickname, channel, usercount) (std::string(":") + SERVER_NAME + " 322 " + nickname + " " + channel + " " + usercount + " :" + "\r\n")
 #define RPL_LISTEND(nickname) (std::string(":") + SERVER_NAME + " 323 " + nickname + " :End of /LIST" + "\r\n")
 
-#define ERR_NOSUCHNICK(nickname, other_nickname) (std::string(":") + SERVER_NAME + " 401 " + nickname + " " + other_nickname + ": No such nick/channel\r\n")
+#define ERR_NOSUCHNICK(nickname, other_nickname) (std::string(":") + SERVER_NAME + " 401 " + nickname + " " + other_nickname + " :No such nick\r\n")
 #define ERR_WASNOSUCHNICK(nickname, other_nickname) (std::string(":") + SERVER_NAME + " 406 " + nickname + " " + other_nickname + " :There was no such nickname\r\n")
 #define ERR_NICKNAMEINUSE(nickname) (std::string(":") + SERVER_NAME + " 433 " + nickname + " :Nickname is already in use\r\n")
 
@@ -80,4 +80,4 @@
 #define PONG(nickname) (std::string(":") + SERVER_NAME + " PONG " + SERVER_NAME + " :" + SERVER_NAME + "\r\n")
 #define NICK(nickname, username, new_nickname) (CLIENT_ID(nickname, username, "NICK") + ":" + new_nickname + "\r\n")
 #define NOTICE(nickname, username, cmd, message) (CLIENT_ID(nickname, username, cmd) + ":" + message + "\r\n")
-#define PRIVMSG(nickname, dest_nickname, msg) (std::string(":") + nickname + " PRIVMSG " + dest_nickname + " :" + msg + "\r\n")
+#define PRIVMSG(nickname, username, dest_nickname, msg) (CLIENT_ID(nickname, username, "PRIVMSG") + dest_nickname + " :" + msg + "\r\n")

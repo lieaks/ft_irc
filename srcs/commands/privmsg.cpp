@@ -2,25 +2,25 @@
 
 bool	client_privmsg(Server &server, Client &client, std::string msg, std::string dest)
 {
-	Client* dest_client = server.getClient(dest.substr(1, dest.length() - 1));
+	Client* dest_client = server.getClient(dest);
 	if (dest_client == NULL)
 	{
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), dest));
 		return false;
 	}
-	client.send_message(PRIVMSG(client.getNickname(), dest, msg));
+	client.send_message(PRIVMSG(client.getNickname(), client.getHostname() ,dest, msg));
 	return true;
 }
 
 bool	channel_privmsg(Server &server, Client &client, std::string msg, std::string dest)
 {
-	Channel* channel = server.getChannel(dest);
+	Channel* channel = server.getChannel(dest.substr(1, dest.length() - 1));
 	if (channel == NULL)
 	{
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), dest));
 		return false;
 	}
-	channel->send_message(PRIVMSG(client.getNickname(), "#" + dest, msg));
+	channel->send_message(PRIVMSG(client.getNickname(), client.getHostname(), "#" + dest, msg));
 	return true;
 }
 
@@ -44,7 +44,7 @@ bool	cmd_privmsg(Server &server, Client &client, std::vector<std::string> &input
 		client.send_message(ERR_NOTEXTTOSEND(client.getNickname()));
 		return false;
 	}
-	if (input.at(0)[1] == '#')
+	if (input.at(1)[0] == '#')
 	{
 		channel_privmsg(server, client, msg, input[1]);
 	}
