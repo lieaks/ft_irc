@@ -2,7 +2,7 @@
 SRCS_MAIN = main Server Client Channel utils
 SRCS = $(addprefix srcs/, $(addsuffix .cpp, $(SRCS_MAIN)))
 
-COMMANDS = nick user pass invite ping info version time privmsg notice oper wallops quit cap join squit
+COMMANDS = nick user pass invite ping info version time privmsg notice oper wallops quit cap join squit mode
 COMMANDS_SRC = $(addprefix srcs/commands/, $(addsuffix .cpp, $(COMMANDS)))
 
 SRCS += $(COMMANDS_SRC)

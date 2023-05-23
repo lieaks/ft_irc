@@ -42,6 +42,7 @@
 #define RPL_WHOREPLY(nickname, channel, username, concerned_client_nickname, status, mode) (std::string(":") + SERVER_NAME + " 352 " + nickname + " " + channel + " ~" + username + " " + SERVER_NAME + " " + SERVER_NAME + " " + concerned_client_nickname + " " + status + mode + " :0" + username + "\r\n")
 #define RPL_WHOREPLY_BIS(nickname, channel, username, concerned_client_nickname, status) (std::string(":") + SERVER_NAME + " 352 " + nickname + " " + channel + " ~" + username + " " + SERVER_NAME + " " + SERVER_NAME + " " + concerned_client_nickname + " " + status + " :0" + username + "\r\n")
 #define RPL_ENDOFWHOWAS(nickname, other_nickname) (std::string(":") + SERVER_NAME + " 369 " + nickname + " " + other_nickname + " :End of /WHOWAS list" + "\r\n")
+#define RPL_UMODEIS(nickname, mode) (std::string(":") + SERVER_NAME + " 221 " + nickname + " " + mode + "\r\n")
 
 #define RPL_LISTSTART(nickname) (std::string(":") + SERVER_NAME + " 321 " + nickname + " Channel :Users Name" + "\r\n")
 #define RPL_LIST(nickname, channel, usercount) (std::string(":") + SERVER_NAME + " 322 " + nickname + " " + channel + " " + usercount + " :" + "\r\n")
@@ -50,7 +51,7 @@
 #define ERR_NOSUCHNICK(nickname, other_nickname) (std::string(":") + SERVER_NAME + " 401 " + nickname + " " + other_nickname + " :No such nick\r\n")
 #define ERR_WASNOSUCHNICK(nickname, other_nickname) (std::string(":") + SERVER_NAME + " 406 " + nickname + " " + other_nickname + " :There was no such nickname\r\n")
 #define ERR_NICKNAMEINUSE(nickname) (std::string(":") + SERVER_NAME + " 433 " + nickname + " :Nickname is already in use\r\n")
-
+#define ERR_USERSDONTMATCH(nickname) (std::string(":") + SERVER_NAME + " 502 " + nickname + " :Cant change mode for other users\r\n")
 
 #define ERR_NORECIPIENT(nickname, command) (std::string(":") + SERVER_NAME + " 411 " + nickname + " :No recipient given " + command + "\r\n")
 #define ERR_NOTEXTTOSEND(nickname) (std::string(":") + SERVER_NAME + " 412 " + nickname + " :No text to send " + "\r\n")
