@@ -1,6 +1,11 @@
 #include "../../includes/commands.hpp"
 
 bool	cmd_part(Server &server, Client &client, std::vector<std::string> &input) {
+	if (client.isRegistered() == false && client.isAuth() == false)
+	{
+		client.send_message(ERR_NOTREGISTERED(client.getNickname(), "PART"));
+		return false;
+	}
 	if (input.size() < 2) {
 		client.send_message(ERR_NEEDMOREPARAMS(client.getNickname(), "PART"));
 		return false;

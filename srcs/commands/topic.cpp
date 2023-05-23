@@ -2,6 +2,11 @@
 
 bool	cmd_topic(Server &server, Client &client, std::vector<std::string> &input) {
 	(void)server;
+	if (client.isRegistered() == false && client.isAuth() == false)
+	{
+		client.send_message(ERR_NOTREGISTERED(client.getNickname(), "TOPIC"));
+		return false;
+	}
 	if (input.size() < 2) {
 		client.send_message(ERR_NEEDMOREPARAMS(client.getNickname(), "TOPIC"));
 		return false;

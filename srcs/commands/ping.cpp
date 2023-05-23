@@ -2,6 +2,11 @@
 
 bool	cmd_ping(Server &server, Client &client, std::vector<std::string> &input)
 {
+	if (client.isRegistered() == false && client.isAuth() == false)
+	{
+		client.send_message(ERR_NOTREGISTERED(client.getNickname(), "PING"));
+		return false;
+	}
 	(void)server;
 	if (input.size() < 2) {
 		client.send_message(ERR_NOORIGIN(client.getNickname()));
