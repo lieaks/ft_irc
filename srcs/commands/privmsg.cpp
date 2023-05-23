@@ -1,6 +1,6 @@
 #include "../../includes/commands.hpp"
 
-static bool	client_notice(Server &server, Client &client, std::string msg, std::string dest)
+bool	client_privmsg(Server &server, Client &client, std::string msg, std::string dest)
 {
 	Client* dest_client = server.getClientByNick(dest);
 	if (dest_client == NULL)
@@ -8,11 +8,11 @@ static bool	client_notice(Server &server, Client &client, std::string msg, std::
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), dest));
 		return false;
 	}
-	dest_client->send_message(NOTICE(client.getNickname(), client.getHostname() ,dest, msg));
+	dest_client->send_message(PRIVMSG(client.getNickname(), client.getHostname(), dest, msg));
 	return true;
 }
 
-static bool	channel_notice(Server &server, Client &client, std::string msg, std::string dest)
+bool	channel_privmsg(Server &server, Client &client, std::string msg, std::string dest)
 {
 	Channel* channel = server.getChannelByName(dest.substr(1, dest.length() - 1));
 	if (channel == NULL)
@@ -20,7 +20,7 @@ static bool	channel_notice(Server &server, Client &client, std::string msg, std:
 		client.send_message(ERR_NOSUCHNICK(client.getNickname(), dest));
 		return false;
 	}
-	channel->send_message(NOTICE(client.getNickname(), client.getHostname(), dest, msg), server.getClientByNick(client.getNickname()));
+	channel->send_message(PRIVMSG(client.getNickname(), client.getHostname(), dest, msg), server.getClientByNick(client.getNickname()));
 	return true;
 }
 
@@ -46,9 +46,9 @@ bool	cmd_privmsg(Server &server, Client &client, std::vector<std::string> &input
 	}
 	if (input.at(1)[0] == '#')
 	{
-		channel_notice(server, client, msg, input[1]);
+		channel_privmsg(server, client, msg, input[1]);
 	}
 	else
-		client_notice(server, client, msg, input[1]);
+		client_privmsg(server, client, msg, input[1]);
 	return true;
 }
