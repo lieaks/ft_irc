@@ -27,6 +27,11 @@ bool	channel_privmsg(Server &server, Client &client, std::string msg, std::strin
 bool	cmd_privmsg(Server &server, Client &client, std::vector<std::string> &input)
 {
 	(void)server;
+	if (client.isRegistered() == false && client.isAuth() == false)
+	{
+		client.send_message(ERR_NOTREGISTERED(client.getNickname(), "PRIVMSG"));
+		return false;
+	}
 	if (input.size() < 3  || (input.size() == 2 && input.at(0)[1] != ':'))
 	{
 		client.send_message(ERR_NEEDMOREPARAMS(client.getNickname(), input[0]));

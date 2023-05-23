@@ -14,6 +14,11 @@
 
 bool	cmd_time(Server &server, Client &client, std::vector<std::string> &input)
 {
+	if (client.isRegistered() == false && client.isAuth() == false)
+	{
+		client.send_message(ERR_NOTREGISTERED(client.getNickname(), "TIME"));
+		return false;
+	}
 	(void)server;
 	if (input.size() > 1 && input[1] != SERVER_NAME)
 	{

@@ -15,6 +15,11 @@
 bool	cmd_version(Server &server, Client &client, std::vector<std::string> &input)
 {
 	(void)server;
+	if (client.isRegistered() == false && client.isAuth() == false)
+	{
+		client.send_message(ERR_NOTREGISTERED(client.getNickname(), "VERSION"));
+		return false;
+	}
 	if (input.size() > 1 && input[1] != SERVER_NAME)
 	{
 		client.send_message(ERR_NOSUCHSERVER(client.getNickname()));

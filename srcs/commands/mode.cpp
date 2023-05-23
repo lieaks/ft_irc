@@ -37,6 +37,11 @@ bool	change_user_mode(Server &server, Client &client, std::string &mode) {
 }
 
 bool	cmd_mode(Server &server, Client &client, std::vector<std::string> &input) {
+	if (client.isRegistered() == false && client.isAuth() == false)
+	{
+		client.send_message(ERR_NOTREGISTERED(client.getNickname(), "MODE"));
+		return false;
+	}
 	if (input.size() < 3) {
 		client.send_message(ERR_NEEDMOREPARAMS(client.getNickname(), "MODE"));
 		return false;

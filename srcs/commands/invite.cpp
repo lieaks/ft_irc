@@ -1,6 +1,11 @@
 #include "../../includes/commands.hpp"
 
 bool	cmd_invite(Server &server, Client &client, std::vector<std::string> &input) {
+	if (client.isRegistered() == false && client.isAuth() == false)
+	{
+		client.send_message(ERR_NOTREGISTERED(client.getNickname(), "INVITE"));
+		return false;
+	}
 	if (input.size() < 3) {
 		client.send_message(ERR_NEEDMOREPARAMS(client.getNickname(), "INVITE"));
 		return false;
