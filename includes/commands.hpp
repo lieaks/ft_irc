@@ -26,3 +26,4 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_squit(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_mode(Server &server, Client &client, std::vector<std::string> &input);
 bool	cmd_topic(Server &server, Client &client, std::vector<std::string> &input);
+bool	cmd_kick(Server &server, Client &client, std::vector<std::string> &input);
