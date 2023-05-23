@@ -19,7 +19,7 @@ bool	cmd_topic(Server &server, Client &client, std::vector<std::string> &input) 
 		return true;
 	}
 	std::string topic = join(input, " ", 2);
-	if (channel->isModeSet(TOPIC_PROTECTED) && (!channel->isOperator(&client) || !channel->isCreator(&client))) {
+	if (channel->isModeSet(TOPIC_PROTECTED) && !(channel->isOperator(&client) || channel->isCreator(&client) || client.isModeSet(OPERATOR))) {
 		client.send_message(ERR_CHANOPRIVSNEEDED(client.getNickname(), channel->getName()));
 		return false;
 	}
