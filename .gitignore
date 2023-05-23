@@ -12,6 +12,7 @@ ircbot
 *.pid
 vgcore.*
 stdout.txt
+.nfs*
 
 # Debug files
 *.dSYM/
