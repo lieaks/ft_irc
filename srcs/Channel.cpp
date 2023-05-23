@@ -89,6 +89,8 @@ void	Channel::send_message(const std::string message, Client *client) {
 void	Channel::removeClient(Client *client) {
 	removeFromVector(_clients, client);
 	removeFromVector(_operators, client);
+	if (client == _creator)
+		_creator = NULL;
 	if (_clients.size() == 0 && _operators.size() == 0)
 		_server.removeChannel(this);
 }
