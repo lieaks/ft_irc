@@ -54,5 +54,7 @@ bool	cmd_nick(Server &server, Client &client, std::vector<std::string> &input) {
 		client.setRegistered(true);
 	if (client.isRegistered() && client.isAuth())
 		client.send_message(RPL_WELCOME(client.getNickname()));
+	else if (client.isRegistered() && !client.isAuth())
+		server.removeClient(server.getClientByNick(client.getNickname()));
 	return true;
 }
