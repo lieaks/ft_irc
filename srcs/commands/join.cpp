@@ -22,5 +22,7 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input) {
 	}
 	client.joinChannel(channel);
 	client.send_message(JOIN(client.getNickname(), client.getHostname(), channel->getName()));
+	client.send_message(RPL_NAMREPLY(client.getNickname(), channel->getName(), channel->getNamesClients()));
+	client.send_message(RPL_ENDOFNAMES(client.getNickname(), channel->getName()));
 	return true;
 }

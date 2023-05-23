@@ -20,7 +20,6 @@
 							":" + SERVER_NAME + " 371 " + nickname + " :" + "written by dly, lgillard, axlamber" + "\r\n" + \
 							":" + SERVER_NAME + " 371 " + nickname + " :" + "version 1.0" + "\r\n")
 
-
 #define RPL_VERSION(nickname) (FORMAT_REPLY(" 351", nickname) + "version " + VERSION + " " + SERVER_NAME + " :Version of ircserv " + "\r\n")
 #define RPL_TIME(nickname, time) (FORMAT_REPLY(" 391", nickname) + SERVER_NAME + " :" + time + "\r\n")
 #define ERR_NOSUCHSERVER(nickname) (FORMAT_REPLY(" 402", nickname) + SERVER_NAME + " :" + "\r\n")
@@ -62,8 +61,8 @@
 #define ERR_NOORIGIN(nickname) (std::string(":") + SERVER_NAME + " 409 " + nickname + " :No origin\r\n")
 
 #define ERR_BADPING(nickname) (std::string(":") + SERVER_NAME + " 513 " + nickname + " Badping" + "\r\n")
-#define RPL_NAMREPLY(nickname, channel, list_client) (std::string(":") + SERVER_NAME + " 353 " + nickname + " = " + channel + " :" + list_client  + "\r\n")
-#define RPL_ENDOFNAMES(nickname, channel) (std::string(":") + SERVER_NAME + " 366 " + nickname + " " + channel + " :End of /NAMES list" + "\r\n")
+#define RPL_NAMREPLY(nickname, channel, list_client) (std::string(":") + SERVER_NAME + " 353 " + nickname + " = #" + channel + " :" + list_client  + "\r\n")
+#define RPL_ENDOFNAMES(nickname, channel) (std::string(":") + SERVER_NAME + " 366 " + nickname + " #" + channel + " :End of /NAMES list" + "\r\n")
 #define ERR_NOSUCHCHANNEL(nickname, channel) (std::string(":") + SERVER_NAME + " 403 " + nickname + " " + channel + " :No such channel" + "\r\n")
 #define ERR_CANNOTSENDTOCHAN(nickname, channel) (std::string(":") + SERVER_NAME + " 404 " + nickname + " " + channel + " :Cannot send to channel" + "\r\n")
 #define ERR_USERNOTINCHANNEL(nickname, channel, concerned_client_nickname) (std::string(":") + SERVER_NAME + " 441 " + nickname + " " + concerned_client_nickname + " " + channel + " :They aren't on that channel" + "\r\n")

@@ -46,6 +46,17 @@ bool	Channel::isInVector(std::vector<Client *> &vec, Client *client) {
 	return true;
 }
 
+std::string	Channel::getNamesClients() {
+	std::string res;
+	for (std::vector<Client*>::iterator it = _clients.begin(); it != _clients.end(); it++) {
+		if (*it == _creator)
+			res+= "@";
+		res += (*it)->getNickname();
+		res += " ";
+	}
+	return res;
+}
+
 Client	*Channel::getClientByNick(std::string nickname) {
 	std::vector<Client*>::iterator it = _clients.begin();
 	while (it != _clients.end()) {

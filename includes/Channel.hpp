@@ -49,6 +49,7 @@ class Channel
 		const std::string	getTopic() const { return _topic; };
 		const std::string	getKey() const { return _key; };
 		std::vector<Client *>	getClients() { return _clients; };
+		std::string			getNamesClients();
 		Client				*getClientByNick(const std::string nickname);
 		Client				*getClientByUser(const std::string username);
 		Client				*getCreator() { return _creator; };
