@@ -51,6 +51,7 @@ Channel *Server::getChannelByName(const std::string name) {
 	while (it != _vector_channels.end()) {
 		if ((*it)->getName() == name)
 			return *it;
+		it++;
 	}
 	return NULL;
 }
