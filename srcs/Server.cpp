@@ -213,5 +213,5 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("CAP", &cmd_cap));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("JOIN", &cmd_join));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("SQUIT", &cmd_squit));
-	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("MODE", &cmd_squit));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("MODE", &cmd_mode));
 }
