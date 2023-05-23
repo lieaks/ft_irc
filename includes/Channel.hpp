@@ -63,9 +63,9 @@ class Channel
 		void	addInvitation(Client *client) { addToVector(_invited, client); };
 		void	removeInvitation(Client *client) { removeFromVector(_invited, client); };
 		bool	isInvited(Client *client) { return isInVector(_invited, client); };
-		void	addOper(Client *client) { addToVector(_operators, client); };
-		void	removeOper(Client *client) { removeFromVector(_operators, client); };
-		bool	isOper(Client *client) { return isInVector(_operators, client); };
+		void	addOperator(Client *client) { addToVector(_operators, client); };
+		void	removeOperator(Client *client) { removeFromVector(_operators, client); };
+		bool	isOperator(Client *client) { return isInVector(_operators, client); };
 
 		// modes related
 		void	addMode(ChannelModes mode) { _modes |= mode; };
