@@ -7,7 +7,7 @@ Client::Client(int client_fd, std::string hostname) :
 	_active_channel(NULL),
 	_modes(0),
 	_isRegistered(false),
-	_isAuth(true) // TODO: change to false
+	_isAuth(false)
 {
 		std::cout << "new client with fd: " << _client_fd << std::endl;
 };

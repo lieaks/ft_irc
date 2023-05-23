@@ -12,7 +12,7 @@
 #define CLIENT_ID(nickname, username, command) (":" + nickname + "!~" + username + "@" + SERVER_NAME + " " + command + " ")
 
 // Reponses numeriques
-#define RPL_WELCOME(nickname) (std::string(":") + SERVER_NAME + " 001 " + nickname + " :Welcome to the Internet Relay Network " + nickname + "\r\n")
+#define RPL_WELCOME(nickname) (std::string(":") + SERVER_NAME + " 001 " + nickname + " :Welcome to the  Chat-Astrophe IRC server " + nickname + "\r\n")
 #define RPL_YOURHOST(nickname) (std::string(":") + SERVER_NAME + " 002 " + nickname + " Your host is " + SERVER_NAME + ", running version " + VERSION + "\r\n")
 #define RPL_CREATED(nickname, date) (std::string(":") + SERVER_NAME + " 003 " + nickname + " :This server was created " + date + "\r\n")
 #define RPL_MYINFO(nickname) (std::string(":") + SERVER_NAME + " 004 " + nickname + " " + SERVER_NAME + " " + VERSION + "\r\n")
