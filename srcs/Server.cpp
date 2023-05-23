@@ -229,7 +229,7 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("QUIT", &cmd_quit));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("CAP", &cmd_cap));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("JOIN", &cmd_join));
-	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("SQUIT", &cmd_squit));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("DIE", &cmd_die));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("MODE", &cmd_mode));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("TOPIC", &cmd_topic));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("KICK", &cmd_kick));
