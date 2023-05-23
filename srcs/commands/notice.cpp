@@ -20,7 +20,7 @@ static bool	channel_notice(Server &server, Client &client, std::string msg, std:
 		/* client.send_message(ERR_NOSUCHNICK(client.getNickname(), dest)); */
 		return false;
 	}
-	channel->send_message(NOTICE(client.getNickname(), client.getHostname(), dest, msg));
+	channel->send_message(NOTICE(client.getNickname(), client.getHostname(), dest, msg), server.getClientByNick(client.getNickname()));
 	return true;
 }
 

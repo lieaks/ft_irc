@@ -77,10 +77,11 @@ Client	*Channel::getClientByUser(std::string username) {
 	return NULL;
 }
 
-void	Channel::send_message(const std::string message) {
+void	Channel::send_message(const std::string message, Client *client) {
 	std::vector<Client*>::iterator it = _clients.begin();
 	while (it != _clients.end()) {
-		(*it)->send_message(message);
+		if (*it != client)
+			(*it)->send_message(message);
 		it++;
 	}
 }

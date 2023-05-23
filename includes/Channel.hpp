@@ -55,7 +55,7 @@ class Channel
 		void	setLimit(size_t limit) { _limit = limit; };
 		void	setCreator(Client *creator) { _creator = creator; };
 
-		void	send_message(const std::string message);
+		void	send_message(const std::string message, Client *except = NULL);
 
 		// clients related
 		void	addClient(Client *client) { addToVector(_clients, client); };
