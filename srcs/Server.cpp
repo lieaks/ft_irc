@@ -234,4 +234,5 @@ void	Server::_init_commands( void ) {
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("TOPIC", &cmd_topic));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("KICK", &cmd_kick));
 	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("PART", &cmd_part));
+	_commands.insert(std::pair<std::string, bool (*)(Server&, Client&, std::vector<std::string>&)>("NAMES", &cmd_part));
 }
