@@ -2,9 +2,6 @@
 
 bool	cmd_names(Server &server, Client &client, std::vector<std::string> &input)
 {
-	(void)server;
-	(void)client;
-	(void)input;
 	if (input.size() < 2)
 	{
 		client.send_message(server.getNamesClients());
@@ -12,7 +9,6 @@ bool	cmd_names(Server &server, Client &client, std::vector<std::string> &input)
 	}
 	else
 	{
-		Channel *channel;
 		std::string name_clients;
 		std::vector<std::string> channel_name = split(input[1], ",");
 		for (std::vector<std::string>::iterator it = channel_name.begin();\
