@@ -2,23 +2,26 @@
 SRCS_MAIN = main Server Client Channel utils
 SRCS = $(addprefix srcs/, $(addsuffix .cpp, $(SRCS_MAIN)))
 
-COMMANDS = nick user pass invite ping info version time privmsg notice oper wallops quit cap join die mode topic kick part
+COMMANDS = nick user pass invite ping info version time privmsg notice oper wallops quit cap join die mode topic kick part names
 COMMANDS_SRC = $(addprefix srcs/commands/, $(addsuffix .cpp, $(COMMANDS)))
 
 SRCS += $(COMMANDS_SRC)
-
 OBJS = $(SRCS:.cpp=.o)
-
 DEPS = $(SRCS:.cpp=.d)
+
+BOT_SRCS = ./bot_srcs/main.cpp
+BOT_OBJS = $(BOT_SRCS:.cpp=.o)
+BOT_DEPS = $(BOT_SRCS:.cpp=.d)
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 CXXFLAGS += -MMD
-CFLAGS += -g3
+# CFLAGS += -g3
 # CFLAGS += -fsanitize=address
 INCLUDE = -I. 
 
 NAME = ircserv
+BOT_NAME = ircbot
 
 flag:= 1
 .cpp.o :
@@ -44,6 +47,10 @@ $(NAME): $(OBJS)
 	@printf "╚══════════════════════════════════════╝\n\033[m"
 	@TERM="xterm-256color" setterm -cursor on
 
+$(BOT_NAME): $(BOT_OBJS)
+	$(CXX) $(CXXFLAGS) $(BOT_OBJS) -o $(BOT_NAME)
+	@TERM="xterm-256color" setterm -cursor on
+
 -include $(DEPS)
 
 clean:
@@ -51,7 +58,7 @@ clean:
 	@printf "║          IRC CLEANING ...            ║\n"
 	@printf "╠══════════════════════════════════════╣\n\033[m"
 	@printf "\033[K\033[1;31m║\033[1;33m Destroying objects                   \033[1;31m║\n\033[m"
-	@rm -f $(OBJS) $(DEPS)
+	@rm -f $(OBJS) $(DEPS) $(BOT_OBJS) $(BOT_DEPS)
 	@printf "\033[1;31m╚══════════════════════════════════════╝\n\033[m"
 
 fclean:
@@ -59,9 +66,9 @@ fclean:
 	@printf "║          IRC CLEANING ...            ║\n"
 	@printf "╠══════════════════════════════════════╣\n\033[m"
 	@printf "\033[K\033[1;31m║\033[1;33m Destroying objects                   \033[1;31m║\n\033[m"
-	@rm -f $(OBJS) $(DEPS)
+	@rm -f $(OBJS) $(DEPS) $(BOT_OBJS) $(BOT_DEPS)
 	@printf "\033[K\033[1;31m║\033[1;31m Destroying all                       \033[1;31m║\n\033[m"
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(BOT_NAME)
 	@printf "\033[1;31m╚══════════════════════════════════════╝\n\033[m"
 
 re: fclean all
