@@ -23,6 +23,8 @@ bool	change_user_mode(Server &server, Client &client, std::string &mode) {
 			add_mode = false;
 			continue;
 		}
+		if (mode[i] == 'o')
+			continue;
 		if (get_mode_from_char(mode[i]) != 0) {
 			if (add_mode)
 				client.addMode(get_mode_from_char(mode[i]));
