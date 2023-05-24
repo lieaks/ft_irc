@@ -32,12 +32,12 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input) {
 			client.send_message(ERR_BADCHANNELKEY(client.getNickname(), channel->getName()));
 			return false;
 		}
-		if (channel->getMode() == 1 << 3 && not channel->isInvited(&client))
+		if (channel->isModeSet(INVITE_ONLY) && not channel->isInvited(&client))
 		{
 			client.send_message(ERR_INVITEONLYCHAN(client.getNickname(), channel->getName()));
 			return false;
 		}
-		if (channel->getMode() == 1 << 7 && channel->getClients().size() == channel->getLimit())
+		if (channel->isModeSet(LIMITED) && channel->getClients().size() == channel->getLimit())
 		{
 			client.send_message(ERR_CHANNELISFULL(client.getNickname(), channel->getName()));
 			return false;
