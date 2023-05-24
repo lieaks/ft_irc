@@ -3,7 +3,7 @@
 extern bool g_running;
 
 Server::Server(int port, std::string password, std::string operators_password):
-	_port(port), _running(true), _password(password), _operators_password(operators_password) {
+	_port(port), _password(password), _operators_password(operators_password) {
 		if (_operators_password.empty())
 			_operators_password = DEFAULT_OPER_PASS;
 		time_t	rawtime = time(NULL);
@@ -142,9 +142,7 @@ void Server::_createpoll(){
 
 void Server::run_server() {
 	int	new_event_fd;
-	while (_running) {
-		if (not g_running)
-			return ;	
+	while (g_running) {
 		new_event_fd = epoll_wait(_epoll_fd, _epoll_tab_events, MAX_EVENTS, -1);
 		for (int i = 0; i < new_event_fd; i++){
 			if (_epoll_tab_events[i].data.fd == _socket_fd)

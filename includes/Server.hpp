@@ -37,7 +37,6 @@ class Server
 		// member attributes
 		int 							_port;
 		std::string						_start_time;
-		bool							_running;
 		std::string						_password;
 		std::string						_operators_password;
 		int								_socket_fd;
@@ -64,8 +63,6 @@ class Server
 		Client						*getClientByNick(const std::string nickname);
 		Client						*getClientByUser(const std::string username);
 		Channel						*getChannelByName(const std::string name);
-
-		void						setRunning(bool running) { _running = running; };
 
 		void	removeClient(Client *client);
 		void	addChannel(Channel *channel);

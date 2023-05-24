@@ -1,6 +1,9 @@
 #include "../../includes/commands.hpp"
 
+extern bool g_running;
+
 bool	cmd_die(Server &server, Client &client, std::vector<std::string> &input) {
+	(void)server;
 	(void)input;
 	if (client.isRegistered() == false && client.isAuth() == false)
 	{
@@ -11,6 +14,6 @@ bool	cmd_die(Server &server, Client &client, std::vector<std::string> &input) {
 		client.send_message(ERR_NOPRIVILEGES(client.getNickname()));
 		return false;
 	}
-	server.setRunning(false);
+	g_running = false;
 	return true;
 }
