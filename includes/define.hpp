@@ -92,3 +92,4 @@
 #define PART(nickname, username, channel, message) (CLIENT_ID(nickname, username, "PART") + "#" + channel + " :" + message + "\r\n")
 #define INVITE(nickname, username, target, channel) (CLIENT_ID(nickname, username, "INVITE") + target + " :#" + channel + "\r\n")
 #define MODE_USER(nickname, username, target, mode) (CLIENT_ID(nickname, username, "MODE") + target + " " + mode + "\r\n")
+#define MODE_CHANNEL(nickname, username, channel, mode) (CLIENT_ID(nickname, username, "MODE") + "#" + channel + " " + mode + "\r\n")
