@@ -9,7 +9,7 @@ Channel::Channel(std::string name, Server &server, Client *creator):
 	_modes(0),
 	_created_at(time(NULL))
 {
-	std::cout << "new channel with name: " << _name << std::endl;
+	// std::cout << "new channel with name: " << _name << std::endl;
 };
 
 Channel::~Channel() {

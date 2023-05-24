@@ -36,6 +36,7 @@ class Server
 
 		// member attributes
 		int 							_port;
+		std::string						_start_time;
 		bool							_running;
 		std::string						_password;
 		std::string						_operators_password;
@@ -56,6 +57,7 @@ class Server
 		// getter
 		std::map<int, Client*>		&getClients() { return _vector_clients; };
 		std::string					getNamesClients(); 
+		std::string					getStartTime() {return _start_time;};
 		const std::string			getPassword() const { return _password; };
 		const std::string			getOperatorPassword() const { return _operators_password; };
 		std::vector<Channel *>		&getChannels() { return _vector_channels; };

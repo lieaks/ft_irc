@@ -4,6 +4,8 @@ Server::Server(int port, std::string password, std::string operators_password):
 	_port(port), _running(true), _password(password), _operators_password(operators_password) {
 		if (_operators_password.empty())
 			_operators_password = DEFAULT_OPER_PASS;
+		time_t	rawtime = time(NULL);
+		_start_time = ctime(&rawtime);
 		_createsocket();
 		_bindsocket();
 		if (listen(_socket_fd, BACKLOG) < 0)
@@ -204,7 +206,6 @@ void Server::_handle_new_msg(int i) {
 			if (client->getInput().size() > pos + 1 && client->getInput()[pos + 1] == '\n')
 				pos++;
 			client->setInput(client->getInput().substr(pos + 1));
-			std::cout << "cmd: " << cmd << std::endl;
 			args = split(cmd, " ");
 			if (args.size()) {
 				if (_commands.find(ft_toupper(args[0])) != _commands.end())

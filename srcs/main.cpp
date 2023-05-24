@@ -26,7 +26,7 @@ int main(int ac, char **av)
 	env_file >> password;
 
 	try {
-		std::cout << "port: " << port << std::endl;
+		// std::cout << "port: " << port << std::endl;
 		Server irc(port, av[2], password);
 		irc.run_server();
 	}

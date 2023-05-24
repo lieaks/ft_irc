@@ -9,7 +9,7 @@ Client::Client(int client_fd, std::string hostname) :
 	_isRegistered(false),
 	_isAuth(false)
 {
-		std::cout << "new client with fd: " << _client_fd << std::endl;
+		// std::cout << "new client with fd: " << _client_fd << std::endl;
 };
 
 Client::~Client() {
