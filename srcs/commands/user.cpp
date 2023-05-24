@@ -37,7 +37,6 @@ bool	cmd_user(Server &server, Client &client, std::vector<std::string> &input) {
 	if (realname[0] == ':')
 		realname = realname.substr(1);
 	client.setRealname(realname);
-	client.addMode(WALLOPS);
 	if (!client.getNickname().empty() && !client.getUsername().empty() && !client.getRealname().empty())
 		client.setRegistered(true);
 	if (client.isRegistered() && client.isAuth())
