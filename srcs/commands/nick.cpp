@@ -40,8 +40,16 @@ bool	cmd_nick(Server &server, Client &client, std::vector<std::string> &input) {
 	}
 	if (is_nick_taken(server, input[1])) {
 		// TODO: send ERR_NICKNAMEINUSE
-		client.send_message(ERR_NICKNAMEINUSE(input[1]));
-		return false;
+		if (client.getNickname().empty())
+		{
+			while (is_nick_taken(server, input[1]))
+				input[1] += "_";
+		}
+		else 
+		{
+			client.send_message(ERR_NICKNAMEINUSE(input[1]));
+			return false;
+		}
 	}
 	// if (is_nick_collision(server, input[1])) {
 	// 	TODO: send ERR_NICKCOLLISION
