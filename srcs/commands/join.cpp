@@ -43,12 +43,7 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input) {
 	}
 	client.joinChannel(channel);
 	channel->send_message(JOIN(client.getNickname(), client.getUsername(), channel->getName()));
-	if (channel->getTopic() != "")
-		client.send_message(RPL_TOPIC(client.getNickname(), channel->getName(), channel->getTopic()));
-	else
-		client.send_message(RPL_NOTOPIC(client.getNickname(), channel->getName()));
+	cmd_topic(server, client, input);
 	cmd_names(server, client, input);
-	// client.send_message(RPL_NAMREPLY(client.getNickname(), channel->getName(), channel->getNamesClients()));
-	// client.send_message(RPL_ENDOFNAMES(client.getNickname(), channel->getName()));
 	return true;
 }
