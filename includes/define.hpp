@@ -91,3 +91,4 @@
 #define KICK(nickname, username, channel, target, message) (CLIENT_ID(nickname, username, "KICK") + "#" + channel + " " + target + " :" + message + "\r\n")
 #define PART(nickname, username, channel, message) (CLIENT_ID(nickname, username, "PART") + "#" + channel + " :" + message + "\r\n")
 #define INVITE(nickname, username, target, channel) (CLIENT_ID(nickname, username, "INVITE") + target + " :#" + channel + "\r\n")
+#define MODE_USER(nickname, username, target, mode) (CLIENT_ID(nickname, username, "MODE") + target + " " + mode + "\r\n")

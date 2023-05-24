@@ -35,11 +35,10 @@ bool	change_user_mode(Server &server, Client &client, std::string &mode) {
 			message_to_send += mode[i];
 			continue;
 		}
-		std::cout << "Unknown mode: " << mode[i] << std::endl; // TODO: remove this
 		client.send_message(ERR_UMODEUNKNOWNFLAG(client.getNickname()));
 	}
 	if (message_to_send != "")
-		client.send_message(RPL_UMODEIS(client.getNickname(), message_to_send));
+		client.send_message(MODE_USER(client.getNickname(), client.getUsername(), client.getNickname(), message_to_send));
 	return true;
 }
 
