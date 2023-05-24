@@ -55,7 +55,6 @@ ChannelModes	get_channelmode_from_char(char c) {
 	return (ChannelModes)0;
 }
 bool	change_channel_mode(Client &client, Channel *channel, std::string &mode, const std::string &key) {
-	std::cout << "add channel mode " << mode << " " << key << std::endl;
 	bool		add_mode = true;
 	std::string	message_to_send = "";
 	for (size_t i = 0; i < mode.size(); i++) {
@@ -94,7 +93,6 @@ bool	change_channel_mode(Client &client, Channel *channel, std::string &mode, co
 	}
 	if (message_to_send != "")
 		client.send_message(MODE_CHANNEL(client.getNickname(), client.getUsername(), channel->getName(), message_to_send));
-	std::cout << "channel mode invite: " << channel->isModeSet(INVITE_ONLY) << std::endl;
 	return true;
 }
 
