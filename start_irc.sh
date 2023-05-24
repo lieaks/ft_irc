@@ -16,10 +16,10 @@ gnome-terminal -- bash -c "valgrind ./ircserv $port $password; exec bash"
 sleep 1
 
 # Launch "i" instances of irssi, each in a separate terminal window, connecting to the server
-for i in 1 2 3
+for i in {1..3}
 do
   sleep 1
-  gnome-terminal -- bash -c "irssi -c localhost -p $port -w $password; exec bash" 
+  gnome-terminal -- bash -c "irssi -c localhost -p $port -w $password -n user$i; exec bash" 
 done
 
 # while the program ircserv is running 
