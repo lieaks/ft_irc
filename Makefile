@@ -12,7 +12,7 @@ OBJS = $(SRCS:.cpp=.o)
 DEPS = $(SRCS:.cpp=.d)
 
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 CXXFLAGS += -MMD
 CFLAGS += -g3
 # CFLAGS += -fsanitize=address
@@ -31,7 +31,7 @@ flag:= 1
 	fi
 	@printf "\033[1;32m║\033[32m                                                                              \033[m\r"
 	@printf "\033[1;35m║\033[0;32m Compiling $@... \033[m\r"
-	@$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@ 
+	@$(CXX) $(CXXFLAGS) $(CFLAGS) $(INCLUDE) -c $< -o $@ 
 	$(eval flag=$(shell echo $$(($(flag)+1))))
 
 all: $(NAME)
