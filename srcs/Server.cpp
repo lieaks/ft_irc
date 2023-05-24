@@ -209,11 +209,9 @@ void Server::_handle_new_msg(int i) {
 			if (args.size()) {
 				if (_commands.find(ft_toupper(args[0])) != _commands.end())
 					_commands[ft_toupper(args[0])](*this, *client, args);
-				else // TODO: uncomment this ?
+				else
 					client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
 			}
-			else
-				client->send_message(ERR_UNKNOWNCOMMAND(client->getNickname(), args[0]));
 
 			if (_vector_clients.find(client_socket) == _vector_clients.end()) 
 				return;
