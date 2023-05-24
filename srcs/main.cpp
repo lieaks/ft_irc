@@ -5,9 +5,19 @@
 #include "../includes/Server.hpp"
 #include <fstream>
 #include <string>
+#include <csignal>
+
+bool	g_running = true;
+
+void signalHandler(int signum)
+{
+	if (signum == SIGINT)
+		g_running = false;
+}
 
 int main(int ac, char **av)
 {
+	signal(SIGINT, signalHandler);
 	if (ac != 3)
 		return (std::cerr << "Usage: ./ircserv <port> <password>" << std::endl, 1);
 
@@ -34,6 +44,6 @@ int main(int ac, char **av)
 		std::cerr << e.what();
 		if (errno != 0)
 			std::cerr << ": " << strerror(errno);
-		std::cerr << std::endl;
+		std::cerr << std::endl; 
 	}
 };
