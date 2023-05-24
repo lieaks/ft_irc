@@ -14,8 +14,10 @@ Channel::Channel(std::string name, Server &server, Client *creator):
 
 Channel::~Channel() {
 	std::vector<Client*>::iterator it = _clients.begin();
-	while (it != _clients.end())
+	while (it != _clients.end()) {
 		(*it)->leaveChannel(this);
+		++it;
+	}
 };
 
 
