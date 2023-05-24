@@ -54,8 +54,7 @@ ChannelModes	get_channelmode_from_char(char c) {
 		return KEY;
 	return (ChannelModes)0;
 }
-
-bool	change_channel_mode(Client &client, Channel &channel, std::string &mode) {
+bool	change_channel_mode(Client &client, Channel &channel, std::string &mode, const std::string &key) {
 	bool		add_mode = true;
 	std::string	message_to_send = "";
 	for (size_t i = 0; i < mode.size(); i++) {
@@ -68,6 +67,17 @@ bool	change_channel_mode(Client &client, Channel &channel, std::string &mode) {
 			continue;
 		}
 		if (get_channelmode_from_char(mode[i]) != 0) {
+			if (add_mode && mode[i] == 'k') {
+				if (key != "")
+					channel.setKey(key);
+				else
+					continue;
+			} else if (add_mode && mode[i] == 'l') {
+				if (key != "")
+					channel.setLimit(atoi(key.c_str()));
+				else
+					continue;
+			}
 			if (add_mode)
 				channel.addMode(get_channelmode_from_char(mode[i]));
 			else
@@ -104,7 +114,10 @@ bool	cmd_mode(Server &server, Client &client, std::vector<std::string> &input) {
 		return (change_user_mode(client, input[2]));
 	} else {
 		Channel	channel = *(server.getChannelByName(input[1].substr(1)));
-		return (change_channel_mode(client, channel, input[2]));
+		if (input.size() == 4)
+			return (change_channel_mode(client, channel, input[2], input[3]));
+		else
+			return (change_channel_mode(client, channel, input[2], std::string("")));
 	}
 	return true;
 }
