@@ -55,7 +55,7 @@
 
 #define ERR_NORECIPIENT(nickname, command) (std::string(":") + SERVER_NAME + " 411 " + nickname + " :No recipient given " + command + "\r\n")
 #define ERR_NOTEXTTOSEND(nickname) (std::string(":") + SERVER_NAME + " 412 " + nickname + " :No text to send " + "\r\n")
-#define ERR_UNKNOWNCOMMAND(nickname, command) (std::string(":") + SERVER_NAME + " 421 " + nickname + " " + command + " :Unknown command")
+#define ERR_UNKNOWNCOMMAND(nickname, command) (std::string(":") + SERVER_NAME + " 421 " + nickname + " " + command + " :Unknown command"+ "\r\n")
 #define ERR_NEEDMOREPARAMS(nickname, command) (std::string(":") + SERVER_NAME + " 461 " + nickname + " " + command + " :Not enough parameters\r\n")
 #define ERR_ALREADYREGISTRED(nickname) (std::string(":") + SERVER_NAME + " 462 " + nickname + " :Already registred\r\n")
 #define ERR_ERRONEUSNICKNAME(nickname) (std::string(":") + SERVER_NAME + " 432 " + nickname + " :Erroneus nickname\r\n")
