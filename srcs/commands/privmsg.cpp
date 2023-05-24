@@ -49,11 +49,13 @@ bool	cmd_privmsg(Server &server, Client &client, std::vector<std::string> &input
 		client.send_message(ERR_NOTEXTTOSEND(client.getNickname()));
 		return false;
 	}
-	if (input.at(1)[0] == '#')
+	std::vector<std::string> dest = split(input[1], ",");
+	for (std::vector<std::string>::iterator it = dest.begin(); it != dest.end(); it++)
 	{
-		channel_privmsg(server, client, msg, input[1]);
+		if (input.at(1)[0] == '#')
+			channel_privmsg(server, client, msg, input[1]);
+		else
+			client_privmsg(server, client, msg, input[1]);
 	}
-	else
-		client_privmsg(server, client, msg, input[1]);
 	return true;
 }
