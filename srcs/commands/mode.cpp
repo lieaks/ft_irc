@@ -54,7 +54,8 @@ ChannelModes	get_channelmode_from_char(char c) {
 		return KEY;
 	return (ChannelModes)0;
 }
-bool	change_channel_mode(Client &client, Channel &channel, std::string &mode, const std::string &key) {
+bool	change_channel_mode(Client &client, Channel *channel, std::string &mode, const std::string &key) {
+	std::cout << "add channel mode " << mode << " " << key << std::endl;
 	bool		add_mode = true;
 	std::string	message_to_send = "";
 	for (size_t i = 0; i < mode.size(); i++) {
@@ -69,19 +70,19 @@ bool	change_channel_mode(Client &client, Channel &channel, std::string &mode, co
 		if (get_channelmode_from_char(mode[i]) != 0) {
 			if (add_mode && mode[i] == 'k') {
 				if (key != "")
-					channel.setKey(key);
+					channel->setKey(key);
 				else
 					continue;
 			} else if (add_mode && mode[i] == 'l') {
 				if (key != "")
-					channel.setLimit(atoi(key.c_str()));
+					channel->setLimit(atoi(key.c_str()));
 				else
 					continue;
 			}
 			if (add_mode)
-				channel.addMode(get_channelmode_from_char(mode[i]));
+				channel->addMode(get_channelmode_from_char(mode[i]));
 			else
-				channel.removeMode(get_channelmode_from_char(mode[i]));
+				channel->removeMode(get_channelmode_from_char(mode[i]));
 			if (add_mode)
 				message_to_send += "+";
 			else
@@ -92,7 +93,8 @@ bool	change_channel_mode(Client &client, Channel &channel, std::string &mode, co
 		client.send_message(ERR_UMODEUNKNOWNFLAG(client.getNickname()));
 	}
 	if (message_to_send != "")
-		client.send_message(MODE_CHANNEL(client.getNickname(), client.getUsername(), channel.getName(), message_to_send));
+		client.send_message(MODE_CHANNEL(client.getNickname(), client.getUsername(), channel->getName(), message_to_send));
+	std::cout << "channel mode invite: " << channel->isModeSet(INVITE_ONLY) << std::endl;
 	return true;
 }
 
@@ -113,7 +115,11 @@ bool	cmd_mode(Server &server, Client &client, std::vector<std::string> &input) {
 		}
 		return (change_user_mode(client, input[2]));
 	} else {
-		Channel	channel = *(server.getChannelByName(input[1].substr(1)));
+		Channel	*channel = server.getChannelByName(input[1].substr(1));
+		if (!channel) {
+			client.send_message(ERR_NOSUCHCHANNEL(client.getNickname(), input[1]));
+			return false;
+		}
 		if (input.size() == 4)
 			return (change_channel_mode(client, channel, input[2], input[3]));
 		else
