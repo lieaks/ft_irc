@@ -25,7 +25,7 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input) {
 	}
 	else
 	{
-		if (not channel->getKey().empty() && input.size() == 3 && input[2] != channel->getKey())
+		if (not channel->getKey().empty() && (input.size() < 3 || input[2] != channel->getKey()))
 		{
 			client.send_message(ERR_BADCHANNELKEY(client.getNickname(), channel->getName()));
 			return false;

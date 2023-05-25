@@ -16,7 +16,6 @@ bool	is_nick_taken(Server &server, std::string &nickname) {
 	for (std::map<int, Client*>::iterator it = server.getClients().begin();
 			it != server.getClients().end(); it++) {
 		if (it->second->getNickname() == nickname) {
-			// std::cerr << "[NICK] Error: nickname already taken" << std::endl;
 			return true;
 		}
 	}
@@ -25,7 +24,6 @@ bool	is_nick_taken(Server &server, std::string &nickname) {
 
 bool	cmd_nick(Server &server, Client &client, std::vector<std::string> &input) {
 	if (input.size() < 2) {
-		// std::cerr << "[NICK] Error: not enough arguments" << std::endl;
 		client.send_message(ERR_NEEDMOREPARAMS(client.getNickname(), "NICK"));
 		return false;
 	}
@@ -33,12 +31,10 @@ bool	cmd_nick(Server &server, Client &client, std::vector<std::string> &input) {
 		return true;
 	}
 	if (!parse_nick(input[1])) {
-		// TODO: send ERR_ERRONEUSNICKNAME
 		client.send_message(ERR_ERRONEUSNICKNAME(input[1]));
 		return false;
 	}
 	if (is_nick_taken(server, input[1])) {
-		// TODO: send ERR_NICKNAMEINUSE
 		if (client.getNickname().empty())
 		{
 			while (is_nick_taken(server, input[1]))
