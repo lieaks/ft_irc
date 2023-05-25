@@ -32,8 +32,8 @@ int main(int ac, char** av) {
 		return 1;
 	}
 	std::string server = "127.0.0.1";
-	std::string password = av[1];
-	std::string port = av[2];
+	std::string password = av[2];
+	std::string port = av[1];
 	std::string channel = av[3];
 	std::string nickname = av[4];
 	if (channel[0] != '#')
