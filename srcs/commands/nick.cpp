@@ -32,7 +32,6 @@ bool	cmd_nick(Server &server, Client &client, std::vector<std::string> &input) {
 	if (client.getNickname() == input[1]) {
 		return true;
 	}
-	// std::cout << "Nickname: " << input[1] << "\"" << std::endl;
 	if (!parse_nick(input[1])) {
 		// TODO: send ERR_ERRONEUSNICKNAME
 		client.send_message(ERR_ERRONEUSNICKNAME(input[1]));
@@ -55,16 +54,15 @@ bool	cmd_nick(Server &server, Client &client, std::vector<std::string> &input) {
 	// 	TODO: send ERR_NICKCOLLISION
 	// 	return false;
 	// }
+	client.setNickname(input[1]);
 	client.send_message(NICK(client.getNickname(), client.getHostname(), input[1]));
-	/* std::cout << "New nickname: " << client.getNickname() << std::endl; */
 	if (!client.getNickname().empty() && !client.getUsername().empty() && !client.getRealname().empty())
 		client.setRegistered(true);
-	if (client.isRegistered() && client.isAuth() && client.getNickname().empty())
+	if (client.isRegistered() && client.isAuth())
 		client.send_message(RPL_WELCOME(client.getNickname()));
 	else if (!client.isAuth()) {
 		server.removeClient(server.getClientByNick(client.getNickname()));
 		return false;
 	}
-	client.setNickname(input[1]);
 	return true;
 }
