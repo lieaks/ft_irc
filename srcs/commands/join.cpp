@@ -43,6 +43,7 @@ bool	cmd_join(Server &server, Client &client, std::vector<std::string> &input) {
 	}
 	client.joinChannel(channel);
 	channel->send_message(JOIN(client.getNickname(), client.getUsername(), channel->getName()));
+	channel->removeInvitation(&client);
 	cmd_topic(server, client, input);
 	cmd_names(server, client, input);
 	return true;
