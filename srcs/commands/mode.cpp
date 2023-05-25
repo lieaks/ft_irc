@@ -52,6 +52,8 @@ ChannelModes	get_channelmode_from_char(char c) {
 		return LIMITED;
 	if (c == 'k')
 		return KEY;
+	if (c == 'o')
+		return COPE;
 	return (ChannelModes)0;
 }
 bool	change_channel_mode(Client &client, Channel *channel, std::string &mode, const std::string &key) {
@@ -77,6 +79,21 @@ bool	change_channel_mode(Client &client, Channel *channel, std::string &mode, co
 					channel->setLimit(atoi(key.c_str()));
 				else
 					continue;
+			} else if (add_mode && mode[i] == 'o') {
+				if (not client.isModeSet(OPERATOR))
+				{
+					client.send_message(ERR_CHANOPRIVSNEEDED(channel->getName(), client.getNickname()));
+					continue;
+				}
+				if (key != ""){
+					Client *client_tmp = channel->getClientByNick(key);
+					if (client_tmp == NULL)
+					{
+						client.send_message(ERR_USERNOTINCHANNEL(client.getNickname(), channel->getName(), key));
+						continue;
+					}
+					channel->addOperator(client_tmp);
+				}
 			}
 			if (add_mode)
 				channel->addMode(get_channelmode_from_char(mode[i]));

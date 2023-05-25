@@ -14,6 +14,7 @@ enum ChannelModes {
 	INVITE_ONLY = 1 << 3,
 	TOPIC_PROTECTED = 1 << 4,
 	LIMITED = 1 << 7,
+	COPE = 1 << 8,
 	KEY = 1 << 10,
 };
 
